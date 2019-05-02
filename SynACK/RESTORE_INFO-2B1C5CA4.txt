@@ -1,0 +1,31 @@
+								Syn---->
+									Ack---->
+
+==================================================================================
+
+Files are encrypted, algorithm used: ecies-secp192r1 & aes-ecb-256.
+To decrypt your files, please contact us using this e-mail address:
+
+				        bubkjdws@scryptmail.com
+
+If for unknown reasons you did not receive any answer on e-mail,
+write to BitMessage (using site https://bitmsg.me/):
+
+				BM-2cWsgWxq1X5M6qjDEBPvCdEbbPLn2zi43k
+
+Please do not perform any manipulations with encrypted files.
+If you want to try to restore your files manually, do backups first.
+And please do not remove files with text notes,
+  because they contain important information required for file restoring.
+
+Please include the following text in your message:
+
+x1rPUdEzdoxRgdIpJRhI6mFKoqSvDtMPQ1rl9tteIn9v/EOX+Sng60SbLiz2USl8ODPsRCWQZ4YbpOun
+102Ta5KqKF/113fkdhc4wISp0xTQr2grNSlUjJrKCnHLYoPbsYxoG6r9N5zl1/5VXPluoHLews6a9buQ
+xs5BwnV26y6lLiLclXdd4nxsx3EpKqhq2M+y/hWfI7c8HmMorDXl/1BiQs5F78sSCVp94kff/wLtYu1V
+/KVZqekuNXALIRzDx8cZySVcVa4hY0QW1gEGIDrTuSctB3jEdOlSyaF/thXQVdLUeMZO7L31Wxc7BGEX
+xNzi0aDQ44+s3eUAGYPGtAQcEEVJKoJ4ig4m51aDHZJaPDLPwfmOkn96ovwLmXt3H37Vl1zjzyDUDHs8
+iggSzmuBT2WTIdeAWsl/J8h8Kvhd0J+0YcFyeQKulPeu4ns3ZooNPxU7wV2FLeKJExgg1NYtNgPvzKPv
+tbi+pF3USRGA
+
+==================================================================================

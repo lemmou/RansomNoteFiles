@@ -1,0 +1,18 @@
+          Your ID: 2vqopc51hk5l
+          Your extension: 5hyvf
+
+Your files are encrypted. Read decrypting instructions on:
+
+ http://txdmxtyifjyxdnpj.onion.link
+ http://txdmxtyifjyxdnpj.torstorm.org
+ http://txdmxtyifjyxdnpj.onion.nu
+ http://txdmxtyifjyxdnpj.onion.cab
+ http://txdmxtyifjyxdnpj.onion.to
+
+If you can't access these websites from your browser, you have to download TOR browser:
+
+ https://www.torproject.org/projects/torbrowser.html 
+
+Follow this link via Tor Browser:
+
+ http://txdmxtyifjyxdnpj.onion

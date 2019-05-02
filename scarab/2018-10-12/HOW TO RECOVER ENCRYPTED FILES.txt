@@ -1,0 +1,40 @@
+Your files are now encrypted!
+
+Your personal identifier:
+6A0200000000000048B1452015928911804008035BE20FF4DFD8ED393A2A4F48C2B9C5CEFA6877D2537969D76BB9639EEE35
+D5955592759C678CCCAC2F63BBA7A5C8BA52B5F956DEBF6654ABD8ED5DDD78B8D2F70ADC2E3EDCB2FDC66E2FAF2EA94837C6
+9B9D9ACE30B5AD7C6EAB79AC60C0907400E04AA214D295673A0C9248C7DE66940E00EF80574CA71A090247CD7F6C4E5C43AE
+693D7E23BB869B4821F00CBAEDF6119A310D33E785A226A6FCBAEB30A76FA21C067F0683829C21C883F4D98D66AC80A74A58
+DB24B0393004849126604D6333EA8BCA5D54A609BBE66BD2FD82B25969C96B166BF230CFBEF9D77C236BF688B5E9D6ADF22F
+682F86E5B03BA895FB426D298563058101EEB381457FC3E06BC20430D73909646AD967C4D4CEC9C6A938C4E94261BC58AFC2
+C99AA28CEE3CB1BB11E780762A3BC9B2911A03261F
+
+All your files have been encrypted due to a security problem with your PC.
+
+Now you should send us email with your personal identifier.
+This email will be as confirmation you are ready to pay for decryption key.
+You have to pay for decryption in Bitcoins. The price depends on how fast you write to us.
+After payment we will send you the decryption tool that will decrypt all your files. 
+
+Contact us using this email address: xcv786@mail.ee (xcv786@india.com, xcv786@tutanota.com)
+If you don't get a reply or if the email dies, then contact us using Bitmessage.
+Download it form here: https://github.com/Bitmessage/PyBitmessage/releases
+Run it, click New Identity and then send us a message at BM-2cVX9BfFbwjVZSi9jMPY22F6aeKMTny46y
+
+Free decryption as guarantee!
+Before paying you can send us up to 3 files for free decryption.
+The total size of files must be less than 10Mb (non archived), and files should not contain
+valuable information (databases, backups, large excel sheets, etc.).
+
+How to obtain Bitcoins? 
+ * The easiest way to buy bitcoins is LocalBitcoins site. You have to register, click 
+   'Buy bitcoins', and select the seller by payment method and price: 
+   https://localbitcoins.com/buy_bitcoins 
+ * Also you can find other places to buy Bitcoins and beginners guide here:   
+   http://www.coindesk.com/information/how-can-i-buy-bitcoins 
+  
+Attention!   
+ * Do not rename encrypted files. 
+ * Do not try to decrypt your data using third party software, it may cause permanent data loss.  
+ * Decryption of your files with the help of third parties may cause increased price  
+   (they add their fee to our) or you can become a victim of a scam.  
