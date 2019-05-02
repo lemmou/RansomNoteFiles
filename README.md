@@ -1,7 +1,7 @@
 # RansomNoteFiles
-Recently, I was trying some ideas on the ransom note files of many ransomware. The results were submitted to an academic journal to evaluate my findings. I will share the results later.
+Recently, I was trying some ideas on the ransom note files of many ransomware. The results were submitted to an academic journal to evaluate the findings. I will share the results later.
 
-This Folder contain the ransom note files of many ransomware.
+This Folder contains the ransom note files of many ransomware.
 
 71 ransomware familes.
 
