@@ -1,0 +1,32 @@
+╔════╦════════════╦═════╗
+╠════╬CommonRansom╬═════╣
+╚════╩════════════╩═════╝
+Hello dear friend,
+Your files were encrypted!
+You have only 12 hours to decrypt it
+In case of no answer our team will delete your decryption password
+Write back to our e-mail: old@nuke.africa
+ 
+ 
+In your message you have to write:
+1. This ID-[redacted 15 numbers]
+2. [redacted IP]:PORT(rdp) of infected machine
+3. Username:Password with admin rights
+4. Time when you have paid 0.1 btc to this bitcoin wallet:
+35M1ZJhTaTi4iduUfZeNA75iByjoQ9ibgF
+ 
+ 
+After payment our team will decrypt your files immediatly
+ 
+ 
+Free decryption as guarantee:
+1. File must be less than 10MB
+2. Only .txt or .lnk files, no databases
+3. Only 5 files
+ 
+ 
+How to obtain bitcoin:
+The easiest way to buy bitcoins is LocalBitcoins site. You have to register, click 'Buy bitcoins', and select the seller by payment method and price.
+https://localbitcoins.com/buy_bitcoins
+Also you can find other places to buy Bitcoins and beginners guide here:
+http://www.coindesk.com/information/how-can-i-buy-bitcoins/

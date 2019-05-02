@@ -1,0 +1,57 @@
+============================================================================================================
+___________ _______   _________  __________ _____.___.__________ ______________________________   ._.._.._.
+\_   _____/ \      \  \_   ___ \ \______   \\__  |   |\______   \\__    ___/\_   _____/\______ \  | || || |
+ |    __)_  /   |   \ /    \  \/  |       _/ /   |   | |     ___/  |    |    |    __)_  |    |  \ | || || |
+ |        \/    |    \\     \____ |    |   \ \____   | |    |      |    |    |        \ |    `   \ \| \| \|
+/_______  /\____|__  / \______  / |____|_  / / ______| |____|      |____|   /_______  //_______  / __ __ __
+        \/         \/         \/         \/  \/                                     \/         \/  \/ \/ \/
+============================================================================================================
+
+YOUR FILES ARE ENCRYPTED!
+
+Your personal Indification key
+0176411197695193821659002380089625731318394408556779288173338810202557520265853188135396098201986205
+0191823818543186370160775080181746462714880179294225622867829350319480915363362459316647946246730424
+5863840744557796899774580340306665334927856839012983115967302005300871446805076397099115673789216005
+8345492059020078105035096294606550510562961902146951703216873936729218274133725760278028177926999372
+5305230346910048021613290567710819997221626228343034137279170627536518789418550476860397930105914538
+3732732781097284491134356725008177905740593225728436863806145581416548728574353661839762790035175593
+906224887828630363
+
+Only option for decryption your files is get decryption software from us.
+Write to 22222@protonmail.ch
+In the mail attach your Indification key (look in begin of this document).
+
+If you dont get answer in 2 hours or mail not working.
+ * Register on site http://bitmsg.me (online message service to send Bitmessage)
+ * Write on Bitmessage adress BM-NBdUQmYVn43e3nK4amuoeaSm4ZStr8oZ with your email and Indification key.
+ 
+In answer you will get restoration cost and Bitcoin wallet adress 
+You will need send demanded donation on given BTC wallet.
+You may send few small files for test decryption before payment.
+
+Soon after your payment (usualy 10-30 min) you will get decryption software and restore your files.
+
+If you dont have Bitcoins
+ * Create Bitcoin wallet: https://blockchain.info/ru/wallet/new
+ * Buy Bitcoin:
+   https://localbitcoins.com/ru/buy_bitcoins (Visa/MasterCard, QIWI Visa Wallet, etc.)
+   https://totalbitcoin.org/guide-on-how-to-buy-bitcoin/
+ 
+
+Important note!
+ 
+ * Contact us soon as you can so we can save your contacts (our email can be blocked).
+ * Restore files without our help is useless If you dont have full backups of data.
+ * Decryption software unique generated for each client.
+ * Decryption of your files with the help of third parties may cause increased price 
+   (they add their fee to our) or you can become a victim of a scam.
+
+============================================================================================================
+___________ _______   _________  __________ _____.___.__________ ______________________________   ._.._.._.
+\_   _____/ \      \  \_   ___ \ \______   \\__  |   |\______   \\__    ___/\_   _____/\______ \  | || || |
+ |    __)_  /   |   \ /    \  \/  |       _/ /   |   | |     ___/  |    |    |    __)_  |    |  \ | || || |
+ |        \/    |    \\     \____ |    |   \ \____   | |    |      |    |    |        \ |    `   \ \| \| \|
+/_______  /\____|__  / \______  / |____|_  / / ______| |____|      |____|   /_______  //_______  / __ __ __
+        \/         \/         \/         \/  \/                                     \/         \/  \/ \/ \/
+============================================================================================================
